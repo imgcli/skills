@@ -35,7 +35,7 @@ changes a *line* inside a beat — it is not a scene transition.
 
 ## 3. Animation-tier props on a UI Primitive
 
-Primitives (`snap-cn-ui`) are state-based and have **no `speed`**. Drive them with `state`.
+Primitives (`imgcli-ui`) are state-based and have **no `speed`**. Drive them with `state`.
 Two ship: `input` and `caret`.
 
 ```tsx

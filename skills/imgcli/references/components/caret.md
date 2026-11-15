@@ -1,6 +1,6 @@
 # caret
 
-**Tier:** `snap-cn-ui` · **Vibe:** clean · **Natural length:** 120f @ 30fps
+**Tier:** `imgcli-ui` · **Vibe:** clean · **Natural length:** 120f @ 30fps
 
 A blinking text caret — a controlled vertical bar, or a pure motion atom that blinks deterministically off the frame clock.
 

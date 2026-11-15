@@ -126,7 +126,7 @@ State-based, timeline-driven shadcn atoms. **No `speed` prop.**
 |---|---|---|---|---|
 | [`input`](input.md) | A form field is part of a larger scene and its state should be driven by the timeline, not by… | You want the whole typing scene choreographed — use `search-typing` or `prompt-zoom`. | 120f | clean |
 | [`caret`](caret.md) | Your own typing scene needs a caret and you want the blink deterministic, not an interval. | You are using `input`, `search-typing` or `prompt-zoom` — they bring their own caret. | 120f | clean |
-| [`snap-cn-ui`](snap-cn-ui.md) | You are writing your own component and need the same tokens the registry uses. | You are only installing components — `shadcn` pulls this in for you. | — | — |
+| [`imgcli-ui`](imgcli-ui.md) | You are writing your own component and need the same tokens the registry uses. | You are only installing components — `shadcn` pulls this in for you. | — | — |
 
 ## Older names
 

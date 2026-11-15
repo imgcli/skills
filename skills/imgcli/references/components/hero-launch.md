@@ -19,7 +19,7 @@ Lands at `components/imgcli/hero-launch.tsx`.
 | `heading` | `string` | "Introducing Imgcli" |
 | `image1` | `string` | showcase clip (image URL, video URL, or a CSS `linear-gradient(...)`) |
 | `image2` | `string` | showcase clip |
-| `theme` | `Partial<SnapCnTheme>` | — |
+| `theme` | `Partial<ImgcliTheme>` | — |
 | `mode` | `"light" | "dark"` | "dark" |
 
 Full prop list and per-prop notes are in the source you install.

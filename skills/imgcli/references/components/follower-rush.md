@@ -26,7 +26,7 @@ These names came from the pre-consolidation registry and are **not installable**
 | `followers` | `Follower[]` | SAMPLE_FOLLOWERS |
 | `accentColor` | `string` | theme `primary` |
 | `orientation` | `"horizontal" | "vertical"` | "horizontal" |
-| `theme` | `Partial<SnapCnTheme>` | — |
+| `theme` | `Partial<ImgcliTheme>` | — |
 | `mode` | `"light" | "dark"` | — |
 | `speed` | `number` | 1 |
 

@@ -1,6 +1,6 @@
 # input
 
-**Tier:** `snap-cn-ui` · **Vibe:** clean · **Natural length:** 120f @ 30fps
+**Tier:** `imgcli-ui` · **Vibe:** clean · **Natural length:** 120f @ 30fps
 
 A text input whose idle/hover/active/typing/invalid state is a pure function of the timeline — the shadcn `Input` surface, keyframed.
 
@@ -25,9 +25,9 @@ These names came from the pre-consolidation registry and are **not installable**
 | `state` | `"idle" | "hover" | "active" | "typing" | "blur" | "invalid"` | "idle" |
 | `style` | `InputStyle` | — |
 | `placeholder` | `string` | "you@example.com" |
-| `value` | `string` | "remotion@snapcn.dev" |
+| `value` | `string` | "remotion@example.com" |
 | `size` | `InputSize` | "default" |
-| `theme` | `Partial<SnapCnTheme>` | — |
+| `theme` | `Partial<ImgcliTheme>` | — |
 | `primary` | `string` | — |
 | `fullWidth` | `boolean` | false |
 | `className` | `string` | — |

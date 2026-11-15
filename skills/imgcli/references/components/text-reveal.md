@@ -42,7 +42,7 @@ These names came from the pre-consolidation registry and are **not installable**
 | `wordPush` | `number` | 0.5 |
 | `wordFade` | `number` | 2 |
 | `letterSpacing` | `string` | "-0.03em" |
-| `theme` | `Partial<SnapCnTheme>` | — |
+| `theme` | `Partial<ImgcliTheme>` | — |
 | `mode` | `"light" | "dark"` | — |
 | `speed` | `number` | 1 |
 

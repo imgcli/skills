@@ -23,7 +23,7 @@ Lands at `components/imgcli/moodboard-reveal.tsx`.
 | `heroImage` | `string` | `images[3]` |
 | `darkColor` | `string` | dark theme `background` |
 | `lightColor` | `string` | light theme `background` |
-| `theme` | `Partial<SnapCnTheme>` | applied to both ends of the crossfade |
+| `theme` | `Partial<ImgcliTheme>` | applied to both ends of the crossfade |
 | `speed` | `number` | 1 |
 
 Full prop list and per-prop notes are in the source you install.

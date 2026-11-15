@@ -30,7 +30,7 @@ These names came from the pre-consolidation registry and are **not installable**
 | `bloom` | `number` | 0.2 |
 | `colorBack` | `string` | "#00000000" |
 | `speed` | `number` | 0.6 |
-| `theme` | `Partial<SnapCnTheme>` | — |
+| `theme` | `Partial<ImgcliTheme>` | — |
 | `mode` | `"light" | "dark"` | — |
 
 Full prop list and per-prop notes are in the source you install.

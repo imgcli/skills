@@ -35,9 +35,9 @@ To use the shorter `@imgcli/<name>` form, map `@imgcli` to
 ### Dependencies install automatically
 
 Many components pull others via `registryDependencies` — `shadcn` installs them transitively.
-For example, installing `search-typing` also pulls `snap-cn-ui`, `input` and `caret`.
+For example, installing `search-typing` also pulls `imgcli-ui`, `input` and `caret`.
 
-- **`@imgcli/snap-cn-ui`** is the shared core lib (timeline-fold hook, theme context, color math).
+- **`@imgcli/imgcli-ui`** is the shared core lib (timeline-fold hook, theme context, color math).
   Most UI Primitives depend on it. You rarely install it directly.
 
 ## Two tiers
@@ -47,9 +47,9 @@ Imgcli has two kinds of components — they have **different APIs**:
 - **Animation tier** (scenes and animations) — text animations, transitions, backgrounds, UI-block sims,
   brand/social cards, full compositions. Frame-driven. Shared props: `speed` (time multiplier),
   and for text: `fontSize`, `color`, `fontWeight`.
-- **UI Primitives** (`snap-cn-ui`) — timeline-driven shadcn-style primitives. Two ship today:
+- **UI Primitives** (`imgcli-ui`) — timeline-driven shadcn-style primitives. Two ship today:
   `input` and `caret`. State-based props (`state`, `style`, `size`, `theme`) — the open/typing
-  state is a pure function of the timeline. **No `speed` prop.** Built on `@imgcli/snap-cn-ui`.
+  state is a pure function of the timeline. **No `speed` prop.** Built on `@imgcli/imgcli-ui`.
 
 ## Component categories
 
@@ -69,7 +69,7 @@ notes). Don't read every file.
 | **Scenes** | Animation | `announce-title`, `hero-launch`, `orbit-gallery`, `moodboard-reveal`, `status-cycle`, `count-grid`, `roster-grant`, `orb-swarm`, `reel-collage`, `card-rail`, `cut-lockup`, `bloom-lockup`, `gather-lockup`, `sky-lockup` |
 | **Social Proof** | Animation | `follower-rush`, `channel-thread` |
 | **Effects** | Animation | `pulsing-border` |
-| **UI Primitives** | `snap-cn-ui` | `input`, `caret` (+ `snap-cn-ui`, the shared core lib) |
+| **UI Primitives** | `imgcli-ui` | `input`, `caret` (+ `imgcli-ui`, the shared core lib) |
 
 Use the [live component index](https://imgcli.com/llms-components.txt?ref=skill-imgcli) to confirm which names are installable. The references below include older names and their replacements.
 
@@ -86,10 +86,10 @@ Conventions differ by tier — don't assume animation-tier props on a primitive.
   `@remotion/transitions` (`slide`, `wipe`, `fade`, `flip`) inside a `<TransitionSeries>`.
 - `className?: string` on the root.
 
-### UI Primitives (`snap-cn-ui`)
+### UI Primitives (`imgcli-ui`)
 
 - State-based, **not** `speed`-based: `state` (e.g. `"open"` / `"closed"`), `style`, `variant`,
-  `size`, `theme?: Partial<SnapCnTheme>`.
+  `size`, `theme?: Partial<ImgcliTheme>`.
 - The opened/closed/active state is a pure function of the timeline (keyframed presets).
 - Compose modal-layer primitives (dialog, alert-dialog, drawer) with a trigger element — see
   each component's example.
