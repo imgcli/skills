@@ -1,0 +1,18 @@
+{
+  "name": "imgcli",
+  "owner": {
+    "name": "Liqi Labs",
+    "url": "https://imgcli.com"
+  },
+  "metadata": {
+    "description": "Hand-tuned Remotion components and the agent skills that compose them into launch films, product demos and motion graphics.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "imgcli",
+      "source": "./",
+      "description": "Skills and a rule that build Remotion videos from Imgcli components: launch videos, product demos, motion graphics, kinetic type, logo animations and explainers."
+    }
+  ]
+}

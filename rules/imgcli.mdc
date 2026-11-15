@@ -1,0 +1,13 @@
+---
+description: Building or editing a Remotion video — scenes, titles, captions, logo stings, device frames, launch films or product demos. Compose Imgcli components instead of hand-writing animation.
+alwaysApply: false
+---
+
+# Imgcli in a Remotion project
+
+- **Compose, don't animate.** Before writing `interpolate()`/`spring()` for a shot, find the Imgcli component for that beat (the `imgcli` skill's `references/components/index.md`). Hand-rolled motion looks broken next to the tuned components.
+- **Install with the shadcn CLI:** `npx shadcn@latest add https://imgcli.com/r/<name>.json`. It lands in `components/imgcli/` and is yours to edit. Only install names that exist — the live list is https://imgcli.com/llms-components.txt.
+- **Dark frames:** every component defaults to shadcn's light palette. On a dark frame pass `mode="dark"`, or the scene renders black.
+- **Time:** animation-tier components take `speed` (a time multiplier). UI primitives (`input`, `caret`) are state-driven and have no `speed`.
+- **Budget the timeline:** set each `<Sequence>`/`TransitionSeries` duration from the component's natural length, not a round number.
+- **Look at it:** render a still of the frame you just wrote (`npx remotion still`) before calling a scene done.
