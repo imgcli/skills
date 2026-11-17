@@ -25,7 +25,7 @@ collapses into it, a wordmark twice the width of the frame with a hard cut.
 
 1. **Pick an Imgcli logo scene first.** The catalogue with lengths:
    `https://imgcli.com/llms-components.txt?ref=skill-logo`. Any page serves markdown with `.md` appended,
-   e.g. `https://imgcli.com/docs/logos/logo-flicker.md?ref=skill-logo`.
+   e.g. `https://imgcli.com/components/logo-flicker.md?ref=skill-logo`.
 2. **Never invent a component name.** Only names in that list install.
 3. **Always pass your own logo and name.** Use the props in the table below to
    replace the scene's sample branding.

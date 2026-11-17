@@ -29,7 +29,7 @@ pick the scenes and fill in the props, not to invent motion.
    `interpolate()` or `spring()` for a shot, check the catalogue:
    `https://imgcli.com/llms-components.txt?ref=skill-launch` lists every installable component with what it
    is for and how many frames it runs. Any component page serves markdown when you append
-   `.md`, for example `https://imgcli.com/docs/scenes/announce-title.md?ref=skill-launch`.
+   `.md`, for example `https://imgcli.com/components/announce-title.md?ref=skill-launch`.
 2. **Never invent a component name.** Install only names in that
    list. If nothing fits a beat, say so and carry the beat with typography
    (`text-reveal`) rather than guessing a name.

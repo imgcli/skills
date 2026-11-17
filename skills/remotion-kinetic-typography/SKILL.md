@@ -33,7 +33,7 @@ five frames moving less than a pixel, which reads as a freeze.
 
 1. **Every line is an Imgcli text component unless none fits.** Catalogue with lengths:
    `https://imgcli.com/llms-components.txt?ref=skill-type`; any page as markdown, e.g.
-   `https://imgcli.com/docs/text/text-reveal.md?ref=skill-type`.
+   `https://imgcli.com/components/text-reveal.md?ref=skill-type`.
 2. **Never invent a component name.** Only names in that list install.
 3. **Set every text prop.** The components ship with sample copy ("Meet Acme Billing",
    "Looking For A … Portfolio") that shows up in your video if you leave a prop out.

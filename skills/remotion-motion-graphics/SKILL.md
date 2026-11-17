@@ -31,7 +31,7 @@ generated.
 1. **Reuse first.** Pick the Imgcli component whose motion is the message, then fill its
    props. Hand-author only the gap no component covers. The catalogue with lengths:
    `https://imgcli.com/llms-components.txt?ref=skill-motion`. Any component page serves markdown with `.md`
-   appended, e.g. `https://imgcli.com/docs/text/type-morph.md?ref=skill-motion`.
+   appended, e.g. `https://imgcli.com/components/type-morph.md?ref=skill-motion`.
 2. **Never invent a component name.** Install only names in that
    list.
 3. **Fill props, don't rewrite the motion.** The timing inside an Imgcli component was fitted

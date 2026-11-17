@@ -30,7 +30,7 @@ against real product demos. Your job is to pick them and fill in the props.
    `interpolate()` or `spring()` for a shot, check `https://imgcli.com/llms-components.txt?ref=skill-demo`
    (every installable component, what it's for, how many frames it runs). Any component
    page serves markdown with `.md` appended, e.g.
-   `https://imgcli.com/docs/screens/screen-recording.md?ref=skill-demo`.
+   `https://imgcli.com/components/screen-recording.md?ref=skill-demo`.
 2. **Never invent a component name.** Install only names in that
    list. If nothing fits, say so.
 3. **Fill props, don't rewrite the component.** Copy, colours, recordings and cursor paths

@@ -24,7 +24,7 @@ that cut hard, a status that changes state, a number that scales, a product on a
 
 1. **Every beat is an Imgcli component unless none fits.** Catalogue with lengths:
    `https://imgcli.com/llms-components.txt?ref=skill-explainer`; any page as markdown, e.g.
-   `https://imgcli.com/docs/captions/word-captions.md?ref=skill-explainer`.
+   `https://imgcli.com/components/word-captions.md?ref=skill-explainer`.
 2. **Never invent a component name.** Only names in that list install.
 3. **Set every text prop.** Scenes ship with sample copy that stays in your video otherwise.
 
