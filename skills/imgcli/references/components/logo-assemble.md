@@ -22,8 +22,8 @@ These names came from the pre-consolidation registry and are **not installable**
 
 | Prop | Type | Default |
 |---|---|---|
-| `logoSrc` | `string` | snapcn white mark |
-| `brandName` | `string` | "snapcn" |
+| `logoSrc` | `string` | Imgcli white mark |
+| `brandName` | `string` | "Imgcli" |
 | `middleText` | `string` | "Cinematic components\nfor React" |
 | `images` | `string[]` | DEFAULT_IMAGES |
 | `count` | `number` | 10 |

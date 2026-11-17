@@ -17,7 +17,7 @@ Lands at `components/imgcli/announce-title.tsx`.
 | Prop | Type | Default |
 |---|---|---|
 | `eyebrow` | `string` | "Introducing" |
-| `title` | `string` | "snapcn 1.0" |
+| `title` | `string` | "Imgcli" |
 | `tagline` | `string` | "Ready-made scenes for Remotion, in one command." |
 | `voidColor` | `string` | "#100022" |
 | `fieldColor` | `string` | "#5600f5" |
@@ -27,7 +27,7 @@ Lands at `components/imgcli/announce-title.tsx`.
 | `glowColor` | `string` | "#08ff4b" |
 | `glowStrength` | `number` | 0.139 |
 | `taglineColor` | `string` | "#f2f8ff" |
-| `symbolPath` | `string` | snapcn mark (SVG path in a `0 0 100 100` box) |
+| `symbolPath` | `string` | Upstream Snapcn mark (SVG path in a `0 0 100 100` box) |
 | `symbolColors` | `string[] | string` | ten measured stops |
 | `symbolScale` | `number` | 1 |
 | `speed` | `number` | 1 |

@@ -16,7 +16,7 @@ Lands at `components/imgcli/status-cycle.tsx`.
 
 | Prop | Type | Default |
 |---|---|---|
-| `prefix` | `string` | "snapcn is" |
+| `prefix` | `string` | "Imgcli is" |
 | `statuses` | `string[] | string` | ["animating","transitioning",…] |
 | `chips` | `string[] | string` | component names |
 | `fieldColor` | `string` | theme `primary` |

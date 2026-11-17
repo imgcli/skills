@@ -110,7 +110,7 @@ import { WordmarkCut } from "@/components/imgcli/wordmark-cut";
 
 // 1280×720 @ 30fps. Each Sequence is budgeted to the component's natural length.
 const T = linearTiming({ durationInFrames: 12 });
-// Real product screenshots in public/. Scenes fall back to snapcn sample images without them.
+// Real product screenshots in public/. Scenes fall back to their bundled sample defaults without them.
 const shots = ["shot-1.jpg", "shot-2.jpg", "shot-3.jpg", "shot-4.jpg"].map((f) => staticFile(f));
 
 export const LaunchVideo: React.FC = () => (

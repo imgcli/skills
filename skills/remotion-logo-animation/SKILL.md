@@ -27,8 +27,8 @@ collapses into it, a wordmark twice the width of the frame with a hard cut.
    `https://imgcli.com/llms-components.txt?ref=skill-logo`. Any page serves markdown with `.md` appended,
    e.g. `https://imgcli.com/docs/logos/logo-flicker.md?ref=skill-logo`.
 2. **Never invent a component name.** Only names in that list install.
-3. **Always pass your own logo and name.** Every logo scene defaults to the snapcn mark and
-   the word "snapcn" until you replace them.
+3. **Always pass your own logo and name.** Use the props in the table below to
+   replace the scene's sample branding.
 4. **Never redraw a logo.** Use the real file: a transparent PNG or SVG in `public/`.
 
 If the `imgcli` Skill is available, use it for component selection and composition guidance.
@@ -94,7 +94,7 @@ npx remotion render LogoAnimation out/logo.mp4 --codec=h264 --crf=18
 ```
 
 - The mark is **your** logo, sharp, and not stretched. Use a square or tight-cropped file.
-- No snapcn default text or mark anywhere in the frames.
+- Only your project's branding appears in the frames.
 - The last frame is a clean hold an editor can cut on.
 - A white logo on a light background disappears: use `mode="dark"` or a dark logo.
 

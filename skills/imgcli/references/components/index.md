@@ -104,7 +104,7 @@ or fetch `https://imgcli.com/docs/<category>/<name>.md`.
 |---|---|---|---|---|
 | `punch-lines` | A run of full-frame statements with hard cuts — a manifesto or promise. Script: `\|` starts a card, `/` a line. | One quiet line — use `text-reveal`. | 144f | premium |
 | `word-gather` | A short sentence that arrives out of order and settles — a tagline. | Lines over ~8 words; the scatter gets busy. | 49f | clean |
-| `word-wheel` | A fixed lead-in with a slot that spins through audiences or use-cases ("snapcn for …"). Pass `words` comma-separated. | One word only — use `text-reveal`. | 66f | playful |
+| `word-wheel` | A fixed lead-in with a slot that spins through audiences or use-cases ("Imgcli for …"). Pass `words` comma-separated. | One word only — use `text-reveal`. | 66f | playful |
 | `orb-swarm` | A sentence told beat by beat with glass orbs that swarm and ring the last words. `script` is six cards split with `\|`. | Tight budgets — it needs its full 160 frames. | 160f | playful |
 | `cut-lockup` | A logo intro/outro in hard cuts: huge on paper, stepping down, construction lines at night, paper wipe onto the lockup. `logo` takes SVG paths. | A text-only title — use `text-reveal`. | 108f | premium |
 | `bloom-lockup` | A logo reveal out of your work: a wall of screens blooms from the mark, cuts in tight, bends away through a lens, and the logo takes its wordmark. `logo` takes SVG paths. | No screens to show — use `cut-lockup`. | 120f | premium |

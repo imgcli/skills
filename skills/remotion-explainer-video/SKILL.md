@@ -86,7 +86,7 @@ const captions = [
   { text: "week.", startMs: 1450, endMs: 2100 },
 ];
 
-// Real product screenshots in public/. Scenes fall back to snapcn sample images without them.
+// Real product screenshots in public/. Scenes fall back to their built-in sample defaults without them.
 const shots = ["shot-1.jpg", "shot-2.jpg", "shot-3.jpg", "shot-4.jpg"].map((f) => staticFile(f));
 
 // ~15s explainer: problem → how it works → result → name, narrated, captions burned in.

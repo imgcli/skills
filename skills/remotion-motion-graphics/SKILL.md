@@ -106,7 +106,7 @@ export const MotionGraphic: React.FC = () => (
 ```
 
 Register it at `durationInFrames={334}`, `fps={30}`, `width={1280}`, `height={720}`. Always
-pass your own `logoSrc` (your logo in `public/`); without it `logo-flicker` shows the snapcn mark.
+pass your own `logoSrc` (your logo in `public/`); without it `logo-flicker` shows the Imgcli mark.
 
 ## Step 4: Verify on proof frames
 

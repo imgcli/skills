@@ -16,7 +16,7 @@ Lands at `components/imgcli/text-rewrite.tsx`.
 
 | Prop | Type | Default |
 |---|---|---|
-| `headline` | `string` | "Or just add snapcn" |
+| `headline` | `string` | "Or just add Imgcli" |
 | `keep` | `number` | 1 |
 | `append` | `string` | "registry" |
 | `eraseAt` | `number` | 1.45 |
@@ -35,7 +35,7 @@ Lands at `components/imgcli/text-rewrite.tsx`.
 ## Example
 
 ```tsx
-<TextRewrite headline="Or just add snapcn" keep={1} append="registry" />
+<TextRewrite headline="Or just add Imgcli" keep={1} append="registry" />
 ```
 
 ## Use when
