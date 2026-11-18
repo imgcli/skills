@@ -21,6 +21,16 @@ Reveal, replace and emphasize a line. Frame-driven, shared `speed` prop.
 | [`text-rewrite`](text-rewrite.md) | The correction is the beat — a line that says one thing, then gets edited on camera into what… | Both versions are entirely different strings — `text-swap` replaces a whole line and offers… | 102f | clean |
 | [`text-select`](text-select.md) | You need a short, cheap emphasis beat — at 72 frames this is the shortest text scene in the… | Only part of the line should be emphasised — use `text-highlight` for a phrase, or… | 72f | clean |
 | [`type-morph`](type-morph.md) | The line has to say two things in sequence and the *second* is the payoff — the morph is the… | The two strings share no letters — the per-letter morph reads as a scramble. Use `text-swap`… | 94f | premium |
+| [`brand-wheel`](brand-wheel.md) | The beat is "works everywhere" / "ship to every platform" and the platforms are recognisable b… | The items are plain words rather than brands — use `word-wheel` or `check-cycle`. | 139f | playful |
+| [`check-cycle`](check-cycle.md) | One line that finishes itself several ways — use-cases, formats, audiences. | The list should spin and land with energy — use `word-wheel`. | 136f | clean |
+| [`drop-line`](drop-line.md) | A quick, punchy text beat — a tagline or transition card. | A line that needs to be read slowly; it is 38 frames. | 38f | playful |
+| [`font-shuffle`](font-shuffle.md) | An "Introducing <name>" title with personality. | Long product names — the subject is set very large. | 115f | premium |
+| [`hello-zoom`](hello-zoom.md) | A developer-tool intro that names the stack it works with. | A calm title that should simply hold — use `text-reveal`. | 75f | tech |
+| [`punch-lines`](punch-lines.md) | A manifesto or promise told as a sequence of full-frame statements. | One quiet line — use `text-reveal`. | 144f | premium |
+| [`spec-sweep`](spec-sweep.md) | A single performance or capability claim — speed, size, a benchmark. | Several specs at once — use `count-grid` or a sequence of beats. | 75f | tech |
+| [`title-sweep`](title-sweep.md) | An end card: product name, then URL or call to action. | A logo mark rather than a name — use a lockup such as `sky-lockup`. | 76f | premium |
+| [`word-gather`](word-gather.md) | A short tagline that should feel assembled rather than typed. | Lines over ~8 words; the scatter gets busy. | 49f | clean |
+| [`word-wheel`](word-wheel.md) | "<Product> for …" lines that cover several audiences or use-cases. | One word only — use `text-reveal`. | 66f | playful |
 
 ## Captions
 
@@ -55,6 +65,8 @@ Put the product's own UI in the shot.
 | [`terminal-simulator`](terminal-simulator.md) | The product is a CLI, or the install command is the pitch. | You need a syntax-highlighted source block rather than terminal output — that does not ship;… | 200f | tech |
 | [`screen-recording`](screen-recording.md) | The user has an actual screen recording of their product and it needs to become a demo shot —… | The capture is already cropped, clean and locked off — an `OffthreadVideo` of your own does… | 139f | clean |
 | [`cursor-track`](cursor-track.md) | A UI simulation, or a recording whose cursor never made it into the file, needs a pointer doing… | The recording already has a cursor in it — two pointers is worse than none. | 132f | clean |
+| [`capture-reveal`](capture-reveal.md) | A hook that turns one product screenshot into a headline. | The screen itself needs to be explored — use `screen-recording` or `laptop-frame`. | 130f | clean |
+| [`phone-stack`](phone-stack.md) | A mobile product with several flows to show in one shot. | One screen that needs close attention — use `phone-frame`. | 120f | clean |
 
 ## Logos
 
@@ -66,6 +78,7 @@ Openers and closers that resolve into a mark.
 | [`logo-flicker`](logo-flicker.md) | A short, high-energy bumper — 100 frames from first flip to resolved mark. | The images deserve to be seen — the flip interval is short by design. Use `logo-assemble` or… | 100f | tech |
 | [`block-wordmark`](block-wordmark.md) | A short wordmark (3–6 characters) is the whole shot and should build rather than fade in. | The wordmark is long; every character gets its own block and the row runs off frame past ~8. | 150f | playful |
 | [`logo-drift`](logo-drift.md) | The integrations *are* the pitch and no single one is the hero — the field never stops on a… | One specific mark has to land and be read — nothing here stops. Use `logo-assemble` or… | 108f | tech |
+| [`logo-collapse`](logo-collapse.md) | A short intro sting that ends on the logo. | Long bumpers — use `logo-flicker` or `logo-assemble`. | 52f | premium |
 
 ## Scenes
 
@@ -78,6 +91,18 @@ Full multi-shot sequences. Each owns its own choreography.
 | [`orbit-gallery`](orbit-gallery.md) | A long hero that has to hold — 300 frames of continuous motion with no beat to hit. | A specific image has to land — the stream never stops on one. Use `moodboard-reveal`. | 300f | premium |
 | [`moodboard-reveal`](moodboard-reveal.md) | One image has to be the payoff and the rest are context — `heroImage` is where the montage… | You need the scene to stay in one mode — it spans light and dark and takes no `mode` prop. | 150f | premium |
 | [`status-cycle`](status-cycle.md) | A product's verbs are the pitch — one line, several states, no scene changes. | You are swapping a single string once — use `text-swap`. | 150f | clean |
+| [`bloom-lockup`](bloom-lockup.md) | A logo intro or outro should show the product's screens, not just the mark. | You have no screens to show — use `cut-lockup`. | 120f | premium |
+| [`card-rail`](card-rail.md) | Feature, template or integration cards that should read as a browsable library. | A single hero image — use `moodboard-reveal`. | 108f | premium |
+| [`count-grid`](count-grid.md) | A growth or volume stat backed by real items (clips, projects, users). | A number with no proof behind it. | 47f | data |
+| [`cut-lockup`](cut-lockup.md) | A logo reveal for a brand with a clean vector mark. | A text-only title — use `text-reveal`. | 108f | premium |
+| [`gather-lockup`](gather-lockup.md) | A logo reveal for a brand with lots of visual work to show (15 pictures). | Fewer than 15 images — use `bloom-lockup`. | 60f at 24fps | premium |
+| [`orb-swarm`](orb-swarm.md) | A kinetic-typography moment with spectacle — a manifesto or hook line. | Tight budgets — it needs its full length. | 160f | playful |
+| [`portal-intro`](portal-intro.md) | An opening that moves from a line of copy into a hero picture and the brand. | No hero image — use `text-reveal` or `announce-title`. | 108f | clean |
+| [`reel-collage`](reel-collage.md) | A quick photo reel that lands on a two-part caption. | Screenshots of UI; it is built for photos. | 96f | playful |
+| [`reel-wall`](reel-wall.md) | A showcase of many vertical videos — creator content, ads, shorts. | Landscape footage that must not be cropped; 9:16 fits best. | 216f at 24fps | premium |
+| [`roster-grant`](roster-grant.md) | Team, seats or access-control features — "everyone gets it". | Solo products; it reads as teams. | 120f | clean |
+| [`sky-lockup`](sky-lockup.md) | A quick closing card that ends on the logo without slowing the video down. | Long sentences; it wants a short promise. | 57f | premium |
+| [`wordmark-cut`](wordmark-cut.md) | The end card for a short, lowercase-friendly brand name. | Long names; it reads best at 4–8 characters. | 66f | premium |
 
 ## Social Proof
 
@@ -86,29 +111,24 @@ Numbers that land.
 | Component | Use for | Avoid for | Length | Vibe |
 |---|---|---|---|---|
 | [`follower-rush`](follower-rush.md) | Social proof is the beat — a launch that landed, a milestone, a waitlist filling. | The metric is not a follower count — nothing else in the registry animates numbers, so build a… | 300f | social |
+| [`channel-thread`](channel-thread.md) | The team reacting to a launch or a problem, told as a work chat. | Consumer or AI chat — use `answer-stream` for an AI reply. | 110f | social |
 
-## Newer components
+## Cursor & Clicks
 
-Shipped after the per-component files above were written. Props: read the installed source,
-or fetch `https://imgcli.com/docs/<category>/<name>.md`.
+A cursor that does something on screen. Built on `cursor-track`.
 
 | Component | Use for | Avoid for | Length | Vibe |
 |---|---|---|---|---|
-| `punch-lines` | A run of full-frame statements with hard cuts — a manifesto or promise. Script: `\|` starts a card, `/` a line. | One quiet line — use `text-reveal`. | 144f | premium |
-| `word-gather` | A short sentence that arrives out of order and settles — a tagline. | Lines over ~8 words; the scatter gets busy. | 49f | clean |
-| `word-wheel` | A fixed lead-in with a slot that spins through audiences or use-cases ("Imgcli for …"). Pass `words` comma-separated. | One word only — use `text-reveal`. | 66f | playful |
-| `orb-swarm` | A sentence told beat by beat with glass orbs that swarm and ring the last words. `script` is six cards split with `\|`. | Tight budgets — it needs its full 160 frames. | 160f | playful |
-| `cut-lockup` | A logo intro/outro in hard cuts: huge on paper, stepping down, construction lines at night, paper wipe onto the lockup. `logo` takes SVG paths. | A text-only title — use `text-reveal`. | 108f | premium |
-| `bloom-lockup` | A logo reveal out of your work: a wall of screens blooms from the mark, cuts in tight, bends away through a lens, and the logo takes its wordmark. `logo` takes SVG paths. | No screens to show — use `cut-lockup`. | 120f | premium |
-| `gather-lockup` | A logo reveal from a photo wall: a line of type falls apart, the wall cuts to a row of four, and the slots hand over to your mark and wordmark. Pass 15 images. | Fewer than 15 images — use `bloom-lockup`. | 60f at 24fps | premium |
-| `sky-lockup` | A quick logo outro: a one-line promise takes itself apart, the page washes to a soft sky, and the mark in the sentence becomes your logo. `logo` takes SVG paths. | Long sentences; it wants a short promise. | 57f | premium |
-| `count-grid` | The "it scales" stat: cards multiply and a counter jumps (`from`, `to`, `noun`). | A number with no proof behind it. | 47f | data |
-| `roster-grant` | A cursor clicks a CTA and a team's avatars switch on — access granted, seats filled. | Solo products; it reads as teams. | 120f | clean |
-| `card-rail` | Feature or template cards flicked across a tilted 3D plane. | A single hero image — use `moodboard-reveal`. | 108f | premium |
-| `reel-collage` | A quick photo reel that shuts into a collage between two captions. | Screenshots of UI; built for photos. | 96f | playful |
-| `channel-thread` | A Slack-style work chat filling itself in — the team reacting to the launch. | Consumer chat — use `answer-stream` for AI replies. | 110f | social |
-| `logo-collapse` | A short intro: a stack of shots flicks through and collapses into your mark. | Long bumpers — use `logo-flicker` or `logo-assemble`. | 52f | premium |
-| `wordmark-cut` | The end card: a huge wordmark, then a hard cut to its last letters. | Long names; it reads best at 4–8 characters. | 66f | premium |
+| [`button-press`](button-press.md) | The deploy, publish or send beat of a launch video. | The click happens inside a real screen recording — use `cursor-track` over the footage. | 126f | clean |
+| [`click-type`](click-type.md) | The "just describe it" beat of an AI product video. | The prompt should be sent and answered in the same shot — use `prompt-send` then `answer-strea… | 103f | tech |
+
+## Transitions
+
+Covers a cut between two shots.
+
+| Component | Use for | Avoid for | Length | Vibe |
+|---|---|---|---|---|
+| [`dot-bloom`](dot-bloom.md) | A warm, characterful cut between two scenes. | A sober or technical edit — a plain cut or `@remotion/transitions` fade reads better. | 30f | playful |
 
 ## UI Primitives
 
