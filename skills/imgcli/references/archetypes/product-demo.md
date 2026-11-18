@@ -118,9 +118,8 @@ export const ProductDemo = () => (
 ```
 
 Background stays on the outer `AbsoluteFill` (one accent on a neutral canvas); components render
-transparent. No animated-background component ships — if a solid fill is too flat, add
-`pulsing-border` as an overlay or build your own backdrop; keep it muted so it never fights the
-foreground. Every `durationInFrames` above is that component's natural length — change the content,
+transparent. No animated-background component ships — if a solid fill is too flat, build your own backdrop;
+keep it muted so it never fights the foreground. Every `durationInFrames` above is that component's natural length — change the content,
 not the budget, unless you have checked the new length in `../components/<name>.md`.
 
 ## Step 5 — check against the bar

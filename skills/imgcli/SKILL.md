@@ -61,14 +61,15 @@ notes). Don't read every file.
 
 | Category | Tier | Components |
 |---|---|---|
-| **Text & Titles** | Animation | `text-reveal`, `type-morph`, `text-swell`, `text-highlight`, `text-swap`, `text-build`, `text-rewrite`, `text-select`, `word-flip`, `punch-lines`, `word-gather`, `word-wheel` |
+| **Text & Titles** | Animation | `text-reveal`, `type-morph`, `text-swell`, `text-highlight`, `text-swap`, `text-build`, `text-rewrite`, `text-select`, `word-flip`, `punch-lines`, `word-gather`, `word-wheel`, `brand-wheel`, `check-cycle`, `drop-line`, `font-shuffle`, `hello-zoom`, `spec-sweep`, `title-sweep` |
 | **Captions** | Animation | `word-captions`, `karaoke-captions` |
 | **AI Chat Input** | Animation | `prompt-send`, `search-typing`, `prompt-zoom`, `answer-stream`, `answer-highlight`, `agent-steps` |
-| **Screens & Devices** | Animation | `phone-frame`, `laptop-frame`, `terminal-simulator`, `screen-recording`, `cursor-track` |
-| **Logos** | Animation | `logo-assemble`, `logo-flicker`, `logo-collapse`, `logo-drift`, `block-wordmark`, `wordmark-cut` |
-| **Scenes** | Animation | `announce-title`, `hero-launch`, `orbit-gallery`, `moodboard-reveal`, `status-cycle`, `count-grid`, `roster-grant`, `orb-swarm`, `reel-collage`, `card-rail`, `cut-lockup`, `bloom-lockup`, `gather-lockup`, `sky-lockup` |
+| **Screens & Devices** | Animation | `phone-frame`, `laptop-frame`, `terminal-simulator`, `screen-recording`, `cursor-track`, `capture-reveal`, `phone-stack` |
+| **Logos** | Animation | `logo-assemble`, `logo-flicker`, `logo-collapse`, `logo-drift`, `block-wordmark` |
+| **Scenes** | Animation | `announce-title`, `hero-launch`, `orbit-gallery`, `moodboard-reveal`, `status-cycle`, `count-grid`, `roster-grant`, `orb-swarm`, `reel-collage`, `card-rail`, `cut-lockup`, `bloom-lockup`, `gather-lockup`, `sky-lockup`, `portal-intro`, `reel-wall`, `wordmark-cut` |
 | **Social Proof** | Animation | `follower-rush`, `channel-thread` |
-| **Effects** | Animation | `pulsing-border` |
+| **Cursor & Clicks** | Animation | `button-press`, `click-type` |
+| **Transitions** | Animation | `dot-bloom` |
 | **UI Primitives** | `imgcli-ui` | `input`, `caret` (+ `imgcli-ui`, the shared core lib) |
 
 Use the [live component index](https://imgcli.com/llms-components.txt?ref=skill-imgcli) to confirm which names are installable. The references below include older names and their replacements.
@@ -145,8 +146,8 @@ restrained:
   subtle 1px elevation only.
 
 **Exception:** never strip these from components whose essence is the effect — `word-flip`'s
-gradient word, `block-wordmark`'s colour deck, `announce-title`'s glow, `pulsing-border` itself,
-and the caption presets' heavy outlines are all legitimate. The rules govern *your* additions,
+gradient word, `block-wordmark`'s colour deck, `announce-title`'s glow, and the
+caption presets' heavy outlines are all legitimate. The rules govern *your* additions,
 not the library.
 
 Full do/avoid examples: `references/design.md`. For motion quality (timing, anticipation,
