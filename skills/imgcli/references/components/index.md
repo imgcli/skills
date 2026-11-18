@@ -87,14 +87,6 @@ Numbers that land.
 |---|---|---|---|---|
 | [`follower-rush`](follower-rush.md) | Social proof is the beat — a launch that landed, a milestone, a waitlist filling. | The metric is not a follower count — nothing else in the registry animates numbers, so build a… | 300f | social |
 
-## Effects
-
-Overlays that sit on top of a scene.
-
-| Component | Use for | Avoid for | Length | Vibe |
-|---|---|---|---|---|
-| [`pulsing-border`](pulsing-border.md) | A scene needs to read as 'generating' or 'thinking' without a spinner. | You need a full animated background — this is a border overlay and `colorBack` is transparent… | 180f | tech |
-
 ## Newer components
 
 Shipped after the per-component files above were written. Props: read the installed source,
@@ -163,7 +155,6 @@ The catalog this file replaces described a pre-consolidation registry. None of t
 | `scale-down-fade` | [`text-reveal`](text-reveal.md) |
 | `screen-callout` | [`screen-recording`](screen-recording.md) — `camera`, a push to the point that needs naming |
 | `screen-spotlight` | [`screen-recording`](screen-recording.md) — `camera`, a push to the point that needs emphasis |
-| `shader-pulsing-border` | [`pulsing-border`](pulsing-border.md) |
 | `shared-axis-y` | [`text-swap`](text-swap.md) |
 | `shared-axis-z` | [`text-swap`](text-swap.md) |
 | `shimmer-sweep` | [`text-highlight`](text-highlight.md) |

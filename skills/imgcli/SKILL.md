@@ -68,7 +68,6 @@ notes). Don't read every file.
 | **Logos** | Animation | `logo-assemble`, `logo-flicker`, `logo-collapse`, `logo-drift`, `block-wordmark`, `wordmark-cut` |
 | **Scenes** | Animation | `announce-title`, `hero-launch`, `orbit-gallery`, `moodboard-reveal`, `status-cycle`, `count-grid`, `roster-grant`, `orb-swarm`, `reel-collage`, `card-rail`, `cut-lockup`, `bloom-lockup`, `gather-lockup`, `sky-lockup` |
 | **Social Proof** | Animation | `follower-rush`, `channel-thread` |
-| **Effects** | Animation | `pulsing-border` |
 | **UI Primitives** | `imgcli-ui` | `input`, `caret` (+ `imgcli-ui`, the shared core lib) |
 
 Use the [live component index](https://imgcli.com/llms-components.txt?ref=skill-imgcli) to confirm which names are installable. The references below include older names and their replacements.
@@ -145,8 +144,8 @@ restrained:
   subtle 1px elevation only.
 
 **Exception:** never strip these from components whose essence is the effect — `word-flip`'s
-gradient word, `block-wordmark`'s colour deck, `announce-title`'s glow, `pulsing-border` itself,
-and the caption presets' heavy outlines are all legitimate. The rules govern *your* additions,
+gradient word, `block-wordmark`'s colour deck, `announce-title`'s glow, and the
+caption presets' heavy outlines are all legitimate. The rules govern *your* additions,
 not the library.
 
 Full do/avoid examples: `references/design.md`. For motion quality (timing, anticipation,
