@@ -1,147 +1,54 @@
 ---
 name: remotion-explainer-video
-description: >
-  Make an explainer video in Remotion: a narrated 30–90s video that explains a product,
-  feature, idea or process, with a voiceover and burned-in captions. Script → voiceover →
-  word timings → one Imgcli scene per beat → captions → render. Uses Imgcli's Remotion
-  components (@imgcli/punch-lines, status-cycle, count-grid, laptop-frame, word-captions,
-  karaoke-captions and more) for every beat instead of hand-animated slides. Triggers:
-  explainer video, animated explainer, how it works video, product explainer, narrated
-  video, voiceover video, "explain my product in a video", "make an explainer in Remotion".
+description: Create a narrated Remotion explainer with current Imgcli scenes, a real voiceover and timed caption overlays.
 ---
 
-# Remotion explainer video, built from Imgcli
+# Narrated explainer video
 
-A narrated explainer in Remotion: a voiceover drives the timing, captions are burned in,
-and every beat on screen is a [Imgcli](https://imgcli.com?ref=skill-explainer) scene. Imgcli scenes install with
-the shadcn CLI and land in your project as code you own.
+Let the approved narration determine the story and duration. Usually 30–90 seconds, with one visual claim per spoken beat.
 
-**Why Imgcli, not hand-written slides.** A narrated video made from scratch ends up as
-bullet points fading in over a gradient. Imgcli gives each beat a real shot: statements
-that cut hard, a status that changes state, a number that scales, a product on a device.
+## Choose current components
 
-## The Imgcli rule
+Check [the live component index](https://imgcli.com/llms-components.txt) or `npx @imgcli/cli list` before selecting scenes. Read the selected component's Markdown page at `https://imgcli.com/components/<name>.md` and its installed TypeScript interface.
 
-1. **Every beat is an Imgcli component unless none fits.** Catalogue with lengths:
-   `https://imgcli.com/llms-components.txt?ref=skill-explainer`; any page as markdown, e.g.
-   `https://imgcli.com/components/word-captions.md?ref=skill-explainer`.
-2. **Never invent a component name.** Only names in that list install.
-3. **Set every text prop.** Scenes ship with sample copy that stays in your video otherwise.
+- Write and approve the script, then record narration or use an available speech tool within the user's authorization. Do not require a specific paid provider.
+- Put the voiceover in `public/voiceover.wav` and obtain timings from the actual narration, using a transcription tool or the speech provider's timestamps.
+- Current Imgcli does not include a caption scene. Use a small timed Remotion overlay (as in the example), or an available caption library. Do not invent an installable caption component.
+- The example uses sentence pages. For word highlighting, derive word timings from the actual audio and validate them; static cue times are not an alignment algorithm.
+- Fit each sequence to its spoken sentence while allowing the component to finish. Keep captions clear of device controls, scene headlines and logos.
 
-If the `imgcli` Skill is available, use it for component selection and composition guidance.
+Verified example toolchain: Remotion 4.0.473 and TypeScript 5.9.3. Keep all @remotion/* packages on the same version; re-run compilation and rendering when using another toolchain.
 
-## Workflow
+## Project and installation
 
-### 1. Script first
+Use a Remotion TypeScript project with dependencies installed and a `src/` directory. If starting empty, run `npx create-video@latest` and choose the blank TypeScript template. Node.js 20.19+ is required.
 
-Write the voiceover before any code, one sentence per beat. 150 words is about a minute.
-
-| Beat | What it says | Imgcli scene | Frames |
-|---|---|---|---|
-| Hook | The problem, in the viewer's words | `punch-lines`, `type-morph` | 144 / 94 |
-| How it works | 2–3 steps or states | `status-cycle`, `word-flip`, `card-rail` | 198 / 180 / 108 |
-| Show it | The product doing it | `laptop-frame`, `phone-frame`, `screen-recording` | 240 / 240 / 139 |
-| Proof | One real number | `count-grid` | 47 |
-| Close | The name | `wordmark-cut`, `block-wordmark` | 66 / 150 |
-
-### 2. Voiceover and word timings
-
-- Record or generate the voiceover. Put it in `public/voiceover.mp3`.
-- Get **word-level** timings as `{ text, startMs, endMs }[]`, the `@remotion/captions`
-  format, from Whisper (`@remotion/install-whisper-cpp`) or your TTS provider.
-- **The voiceover sets the length.** Stretch each beat's sequence to its sentence, never
-  shorter than the scene's natural length (the Frames column).
-
-### 3. Captions
-
-- `word-captions`: burned-in captions that page through the transcript; pass `captions`.
-  Styles via `preset`; use `aspect="9:16"` for vertical.
-- `karaoke-captions`: one line that fills word by word, for a single emphasised quote.
-- Captions sit on top of every scene; they are transparent over the scene behind them.
-
-### 4. Build
+The example loads Geist through `@remotion/google-fonts`. Install that package at the same exact version as the project's `remotion`; keep all `@remotion/*` versions aligned. No shadcn initialization, `components.json`, API key or import alias is needed for the current free components.
 
 ```bash
-npx shadcn@latest add https://imgcli.com/r/punch-lines.json https://imgcli.com/r/status-cycle.json https://imgcli.com/r/count-grid.json https://imgcli.com/r/wordmark-cut.json https://imgcli.com/r/word-captions.json
+npx @imgcli/cli add statement-cuts checklist-run laptop-lid lockup-draw
 ```
 
-A ~15s explainer: problem → how it works → proof → name, narrated, with captions. It
-typechecks and renders as written with `public/voiceover.mp3` and four screenshots present:
+Run from the project root after `src/` exists. Files land in `src/components/imgcli/`, with dependencies and relative imports handled by the CLI. If there is no `src/`, the CLI installs under the project root instead; adapt the example's relative paths accordingly. Existing files with different contents are preserved: inspect the conflict instead of forcing an overwrite.
 
-```tsx
-import { AbsoluteFill, Audio, Series, staticFile } from "remotion";
-import { CountGrid } from "@/components/imgcli/count-grid";
-import { PunchLines } from "@/components/imgcli/punch-lines";
-import { StatusCycle } from "@/components/imgcli/status-cycle";
-import { WordCaptions } from "@/components/imgcli/word-captions";
-import { WordmarkCut } from "@/components/imgcli/wordmark-cut";
+## Runnable example
 
-// Word-level timings from Whisper (or @remotion/captions): { text, startMs, endMs }[].
-const captions = [
-  { text: "Closing", startMs: 0, endMs: 400 },
-  { text: "the", startMs: 400, endMs: 550 },
-  { text: "books", startMs: 550, endMs: 1000 },
-  { text: "takes", startMs: 1000, endMs: 1350 },
-  { text: "a", startMs: 1350, endMs: 1450 },
-  { text: "week.", startMs: 1450, endMs: 2100 },
-];
+Copy [examples/index.tsx](examples/index.tsx) to `src/index.tsx`. This entry includes its `Composition` registration: `Explainer`, 900 frames at 30 fps, 1280 × 720 (30.0 seconds). Use the component in your existing Root instead if your project already has registrations.
 
-// Real product screenshots in public/. Scenes fall back to their built-in sample defaults without them.
-const shots = ["shot-1.jpg", "shot-2.jpg", "shot-3.jpg", "shot-4.jpg"].map((f) => staticFile(f));
+Required media: `public/voiceover.wav` (30 seconds for the unmodified example), `public/screenshot.svg` (16:10), and `public/logo.svg`. The cue text and times in the example are illustrative; replace both with the approved narration and its real timings.
 
-// ~15s explainer: problem → how it works → result → name, narrated, captions burned in.
-export const Explainer: React.FC = () => (
-  <AbsoluteFill>
-    <Series>
-      <Series.Sequence durationInFrames={144}>
-        <PunchLines script="Closing the books / takes a week. | Acme / does it overnight." />
-      </Series.Sequence>
-      <Series.Sequence durationInFrames={198}>
-        <StatusCycle
-          prefix="Every invoice gets"
-          statuses={["imported", "matched", "reconciled"]}
-          chips={["Stripe", "QuickBooks", "Xero"]}
-        />
-      </Series.Sequence>
-      <Series.Sequence durationInFrames={60}>
-        <CountGrid from="5" to="500" noun="teams" cards={shots} />
-      </Series.Sequence>
-      <Series.Sequence durationInFrames={66}>
-        <WordmarkCut word="acme." />
-      </Series.Sequence>
-    </Series>
-    <WordCaptions captions={captions} />
-    <Audio src={staticFile("voiceover.mp3")} />
-  </AbsoluteFill>
-);
-```
+The example is a technical starting point, not customer evidence. Replace its name, copy, media, URLs and any illustrative data before publishing. Choose the user's language and aspect ratio, then inspect that actual layout; the landscape example is not a promise of automatic portrait reflow.
 
-Register it at `durationInFrames={468}`, `fps={30}`, `width={1280}`, `height={720}`. For a
-real explainer, derive each sequence's length from its sentence's timings and set the
-total from the voiceover's duration.
-
-### 5. Check and render
+## Compile, inspect and render
 
 ```bash
-npx remotion still Explainer out/beat.png --frame=250
-npx remotion render Explainer out/explainer.mp4 --codec=h264 --crf=18
+npx tsc --noEmit
+npx remotion still src/index.tsx Explainer out/beat.png --frame=450
+npx remotion render src/index.tsx Explainer out/Explainer.mp4 --codec=h264 --crf=18
 ```
 
-- Each scene is on screen while its sentence is spoken. Watch with sound once.
-- Captions never cover the scene's own headline; if they do, move the scene's copy or use
-  a shorter caption page (`maxWords`).
-- Every string on screen is from the script, and no sample copy is left from a default.
-
-## Rules
-
-- **Say it, then show it.** The scene shows what the voice just claimed, never different
-  text to read at the same time.
-- **One idea per beat**, about 5–8 seconds each.
-- **Burn the captions in.** Most views start muted.
-- **Real numbers only.** Never invent a metric for the proof beat.
+Inspect a frame in every beat, both sides of cuts, the first fully readable frame and the final hold. Check all required media, line wrapping, logo geometry and audio/caption alignment where present. A successful render is not visual approval. Report what was rendered, which assets were fixtures, and any missing real inputs. Publishing or uploading needs the user's instruction.
 
 ## Attribution
 
-The render-audit and "burn captions in" guidance are adapted from
-[everyinc/product-launch-video](https://github.com/everyinc/product-launch-video) (MIT,
-© 2026 Every Media, Inc.). See `THIRD_PARTY_NOTICES.md`.
+Existing third-party acknowledgments remain in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md); retain them when redistributing.

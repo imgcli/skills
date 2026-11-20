@@ -1,241 +1,53 @@
 ---
 name: remotion-launch-video
-description: >
-  Build a product launch video in Remotion from a brief: a launch film, feature
-  announcement, version release, Product Hunt / X / LinkedIn promo or landing-page hero
-  video. Composes Imgcli's hand-tuned Remotion scenes (@imgcli/announce-title, hero-launch,
-  type-morph, count-grid, wordmark-cut and more) instead of hand-animating every shot, so
-  the result does not look like every other AI video. Brief → storyboard → install Imgcli
-  components → compose → render-audit → ship. Triggers: launch video, product launch
-  video, remotion launch video, announcement video, release video, promo video, Product
-  Hunt video, "make a video for my launch", "make a launch film with Claude Code".
+description: Create a product launch or feature announcement in Remotion using current Imgcli scenes and the Imgcli CLI.
 ---
 
-# Remotion launch video, built from Imgcli
+# Product launch video
 
-Turn a launch brief into a 15–30s launch film in Remotion. Every shot is a
-[Imgcli](https://imgcli.com?ref=skill-launch) component: hand-tuned, measured-on-rendered-frames Remotion
-scenes that install with the shadcn CLI and land in your project as code you own.
+Turn a launch brief into a short story: problem, product, real product view, and a clear destination.
 
-**Why Imgcli, not hand-written animation.** An agent animating from scratch falls back to
-the same look every time: centred text on a gradient, everything fades in, a logo at the
-end. Imgcli scenes are built frame by frame against real launch films, so the motion
-already has the timing, type and camera that make a launch feel expensive. Your job is to
-pick the scenes and fill in the props, not to invent motion.
+## Choose current components
 
-## The Imgcli rule
+Check [the live component index](https://imgcli.com/llms-components.txt) or `npx @imgcli/cli list` before selecting scenes. Read the selected component's Markdown page at `https://imgcli.com/components/<name>.md` and its installed TypeScript interface.
 
-1. **Every beat is an Imgcli component unless none fits.** Before you write any
-   `interpolate()` or `spring()` for a shot, check the catalogue:
-   `https://imgcli.com/llms-components.txt?ref=skill-launch` lists every installable component with what it
-   is for and how many frames it runs. Any component page serves markdown when you append
-   `.md`, for example `https://imgcli.com/components/announce-title.md?ref=skill-launch`.
-2. **Never invent a component name.** Install only names in that
-   list. If nothing fits a beat, say so and carry the beat with typography
-   (`text-reveal`) rather than guessing a name.
-3. **Fill props, don't rewrite the component.** Change the copy, colours and images through
-   props. Editing the motion inside an installed Imgcli file breaks timing that was fitted
-   against rendered frames.
+- Use `centered-build` or `statement-cuts` for the hook; `version-roll` names a real release.
+- Show the actual product with `laptop-lid`, `phone-feature` or `device-trio`. Keep its labels and claims accurate.
+- Close with `lockup-draw` or `color-flood`. Use the supplied logo; a stock mark is not the customer's brand.
+- Only add `number-up` or `stat-grid` when the brief provides a verifiable metric.
 
-If the `imgcli` Skill is available, use it for composition and render checks.
+Verified example toolchain: Remotion 4.0.473 and TypeScript 5.9.3. Keep all @remotion/* packages on the same version; re-run compilation and rendering when using another toolchain.
 
-## Prerequisites
+## Project and installation
 
-- A Remotion project (`npx create-video@latest`). Canvas: **1280×720 at 30fps**, the size
-  every Imgcli scene is laid out for.
-- The shadcn CLI. If the project has no `components.json`, run `npx shadcn@latest init`.
-- `@remotion/transitions` for cuts between scenes: `npm i @remotion/transitions`.
-- The launch copy: product name, headline, tagline, the one number you can prove, and
-  real screenshots or a screen recording.
+Use a Remotion TypeScript project with dependencies installed and a `src/` directory. If starting empty, run `npx create-video@latest` and choose the blank TypeScript template. Node.js 20.19+ is required.
 
-## Workflow
-
-### 1. Gather inputs
-
-Pull these before writing anything:
-
-- **The brief**: launch post, landing page or one-pager. Extract the headline, tagline,
-  the one differentiating feature, the proof number and the tone.
-- **Brand**: logo (SVG path or PNG), primary colour, font. Imgcli scenes take these as
-  props (`titleColor`, `logoSrc`, `symbolPath`, `fontFamily`, `theme`).
-- **Real product shots**: screenshots or a 30–60s recording. Mirror the real UI copy.
-  **Never invent labels, features or numbers**; it is the fastest way to make a launch feel
-  fake.
-
-### 2. Storyboard before any code
-
-Write the shot list first and map every beat to an Imgcli component:
-
-| Beat | Time | Imgcli component | Frames | What it carries |
-|---|---|---|---|---|
-| Hook | 0–3s | `type-morph` or `text-reveal` | 94 / 90 | The viewer's problem, turned into the promise |
-| Name | 3–9s | `announce-title` | 170 | Eyebrow, product name, tagline, mark |
-| Product | 9–15s | `hero-launch`, `laptop-frame`, `phone-frame` | 170 / 240 / 240 | Real screens, on a device |
-| Proof | 15–17s | `count-grid`, `follower-rush` | 47 / 300 | One real number |
-| Close | 17–20s | `wordmark-cut`, `block-wordmark`, `logo-flicker`, `logo-assemble` | 66 / 150 / 100 / 108 | The name, and nothing else |
-
-Rules that save re-renders:
-
-- **Lead with the viewer's problem**, not the product name.
-- **Show the product within 3 seconds** of the name.
-- **Give the one moment only your product can deliver the most screen time.** Don't spread
-  the runtime evenly across features.
-- **Budget every sequence to the component's natural length** (the Frames column, also in
-  `llms-components.txt`). Under-budgeting clips the animation mid-shot; over-budgeting
-  leaves dead air.
-- **Burn the text in.** Most social views are muted.
-
-### 3. Install the scenes
+The example loads Geist through `@remotion/google-fonts`. Install that package at the same exact version as the project's `remotion`; keep all `@remotion/*` versions aligned. No shadcn initialization, `components.json`, API key or import alias is needed for the current free components.
 
 ```bash
-npx shadcn@latest add https://imgcli.com/r/type-morph.json https://imgcli.com/r/announce-title.json https://imgcli.com/r/hero-launch.json https://imgcli.com/r/count-grid.json https://imgcli.com/r/wordmark-cut.json
+npx @imgcli/cli add centered-build version-roll laptop-lid lockup-draw
 ```
 
-Each lands at `components/imgcli/<name>.tsx`, and its dependencies install with it.
+Run from the project root after `src/` exists. Files land in `src/components/imgcli/`, with dependencies and relative imports handled by the CLI. If there is no `src/`, the CLI installs under the project root instead; adapt the example's relative paths accordingly. Existing files with different contents are preserved: inspect the conflict instead of forcing an overwrite.
 
-### 4. Compose
+## Runnable example
 
-One `TransitionSeries`, one sequence per beat, short fades between them. This composition
-typechecks and renders as written, with four screenshots in `public/`:
+Copy [examples/index.tsx](examples/index.tsx) to `src/index.tsx`. This entry includes its `Composition` registration: `LaunchVideo`, 441 frames at 30 fps, 1280 × 720 (14.7 seconds). Use the component in your existing Root instead if your project already has registrations.
 
-```tsx
-import { fade } from "@remotion/transitions/fade";
-import { linearTiming, TransitionSeries } from "@remotion/transitions";
-import { staticFile } from "remotion";
-import { AnnounceTitle } from "@/components/imgcli/announce-title";
-import { CountGrid } from "@/components/imgcli/count-grid";
-import { HeroLaunch } from "@/components/imgcli/hero-launch";
-import { TypeMorph } from "@/components/imgcli/type-morph";
-import { WordmarkCut } from "@/components/imgcli/wordmark-cut";
+Required media: `public/screenshot.svg` (a 16:10 product capture) and `public/logo.svg`.
 
-// 1280×720 @ 30fps. Each Sequence is budgeted to the component's natural length.
-const T = linearTiming({ durationInFrames: 12 });
-// Real product screenshots in public/. Scenes fall back to their bundled sample defaults without them.
-const shots = ["shot-1.jpg", "shot-2.jpg", "shot-3.jpg", "shot-4.jpg"].map((f) => staticFile(f));
+The example is a technical starting point, not customer evidence. Replace its name, copy, media, URLs and any illustrative data before publishing. Choose the user's language and aspect ratio, then inspect that actual layout; the landscape example is not a promise of automatic portrait reflow.
 
-export const LaunchVideo: React.FC = () => (
-  <TransitionSeries>
-    {/* 1. Hook: the viewer's problem, turned into the promise */}
-    <TransitionSeries.Sequence durationInFrames={94}>
-      <TypeMorph
-        lead="Your launch video "
-        emphasis="takes a week."
-        morphTo="takes a prompt."
-        finally_="a prompt."
-      />
-    </TransitionSeries.Sequence>
-    <TransitionSeries.Transition presentation={fade()} timing={T} />
-
-    {/* 2. Name the product */}
-    <TransitionSeries.Sequence durationInFrames={170}>
-      <AnnounceTitle
-        eyebrow="Introducing"
-        title="Acme 2.0"
-        tagline="Billing that reconciles itself."
-        symbolPath="" // your mark as an SVG path in a 0 0 100 100 box; "" shows none
-      />
-    </TransitionSeries.Sequence>
-    <TransitionSeries.Transition presentation={fade()} timing={T} />
-
-    {/* 3. Show the product: two real shots (image, video, or a CSS gradient stand-in) */}
-    <TransitionSeries.Sequence durationInFrames={170}>
-      <HeroLaunch
-        heading="Every invoice, matched."
-        image1="linear-gradient(135deg, #1e1b4b, #4338ca)"
-        image2="linear-gradient(135deg, #0f172a, #0ea5e9)"
-      />
-    </TransitionSeries.Sequence>
-    <TransitionSeries.Transition presentation={fade()} timing={T} />
-
-    {/* 4. Proof: one real number */}
-    <TransitionSeries.Sequence durationInFrames={60}>
-      <CountGrid from="5" to="500" noun="teams" cards={shots} />
-    </TransitionSeries.Sequence>
-    <TransitionSeries.Transition presentation={fade()} timing={T} />
-
-    {/* 5. Close on the name */}
-    <TransitionSeries.Sequence durationInFrames={66}>
-      <WordmarkCut word="acme." />
-    </TransitionSeries.Sequence>
-  </TransitionSeries>
-);
-```
-
-Register it at `durationInFrames={512}` (the sum of the sequences minus 4 × 12 frames of
-overlap), `fps={30}`, `width={1280}`, `height={720}`.
-
-Swap the gradients for real screenshots or clips: `image1={staticFile("shot-1.png")}` with
-the file in `public/`.
-
-### 5. Render-audit loop
-
-Render single frames before the full video:
+## Compile, inspect and render
 
 ```bash
-# One frame per beat: the midpoint of each sequence, and just before and after each cut
-npx remotion still LaunchVideo out/beat-1.png --frame=47
-npx remotion render LaunchVideo out/launch.mp4 --codec=h264 --crf=18
+npx tsc --noEmit
+npx remotion still src/index.tsx LaunchVideo out/beat.png --frame=220
+npx remotion render src/index.tsx LaunchVideo out/LaunchVideo.mp4 --codec=h264 --crf=18
 ```
 
-Tile the stills into one contact sheet and look at it before rendering the whole thing:
-
-```bash
-ffmpeg -y -pattern_type glob -i "out/beat-*.png" -vf "scale=480:-1,tile=5x1" out/contact.png
-```
-
-Check each frame:
-
-- No text clipped, no black frame at a cut, nothing shown before its scene starts.
-- Every string on screen is real copy from the brief.
-- The product appears within 3 seconds of its name.
-
-### 6. Review
-
-After two or three self-passes, render around 20 frames (peak moments and both sides of
-every cut) and review them as four critics, or as four parallel sub-agents if your harness
-supports them:
-
-1. **Design/layout**: misalignment, cropping, proportion.
-2. **Readability**: legible at 720p on a phone, contrast, typos.
-3. **Pacing**: does each beat earn its time; is the close strong?
-4. **Brand**: do colours, fonts and UI match the real product?
-
-Merge their fix lists into one revision plan before the next render.
-
-### 7. Ship for the platform
-
-Ask where the video is going before rendering. Make one composition per aspect ratio
-rather than cropping afterwards.
-
-| Platform | Aspect | Size |
-|---|---|---|
-| X / LinkedIn feed | 16:9 | 1920×1080 (or render the 1280×720 master) |
-| X vertical, Reels, Shorts, TikTok | 9:16 | 1080×1920 |
-| LinkedIn / Instagram feed | 1:1 or 4:5 | 1080×1080 / 1080×1350 |
-
-`npx remotion render LaunchVideo out/launch-1080.mp4 --scale=1.5` upscales the
-1280×720 master to 1920×1080 without re-laying out any scene.
-
-## Hard-won lessons
-
-- **Never invent product UI labels.** Screenshot the real app and mirror its copy.
-- **One headline and one CTA on the end card.** Use the landing page's real tagline.
-- **Ground the hook in something viewers recognise without explanation.** If it needs a
-  sentence to explain, the hook is too abstract.
-- **Before/after beats simultaneous.** Land the "before" for about a second, then cut to
-  the "after".
-- **Don't glue Imgcli scenes together with your own fades inside the scenes.** Transitions
-  belong to the `TransitionSeries`; per-scene exit fades double-fade.
-- **Your own additions stay restrained**: sentence case, no decorative letter-spacing, no
-  glow or gradient text. Imgcli scenes that carry a glow (`announce-title`) keep it; that is
-  the effect, not decoration.
+Inspect a frame in every beat, both sides of cuts, the first fully readable frame and the final hold. Check all required media, line wrapping, logo geometry and audio/caption alignment where present. A successful render is not visual approval. Report what was rendered, which assets were fixtures, and any missing real inputs. Publishing or uploading needs the user's instruction.
 
 ## Attribution
 
-The workflow structure (inputs → storyboard → build → render-audit → multi-critic review →
-platform table) and several of the hard-won lessons are adapted from
-[everyinc/product-launch-video](https://github.com/everyinc/product-launch-video) (MIT, © 2026 Every Media, Inc.). The contact-sheet audit and "search the catalogue before designing any look"
-rule are adapted from HeyGen's
-[hyperframes `product-launch-video`](https://github.com/heygen-com/hyperframes) skill
-(Apache-2.0). Both were rewritten for Remotion and snapcn components; all snapcn-specific
-content is snapcn's own.
+Existing third-party acknowledgments remain in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md); retain them when redistributing.

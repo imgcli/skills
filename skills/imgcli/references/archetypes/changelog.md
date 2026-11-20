@@ -1,54 +1,21 @@
 # changelog
 
-**Family:** B. Release & Updates · **Default duration:** ~9s (270f @30fps, scales with item count N) · **Format:** 16:9 · **Vibe:** clean
+Explain a release through its most useful change.
 
-A regular-release recap: show the version number and a human-readable list of changes (Added / Fixed /
-Changed), close on a footer with a link and date. Calm and legible — the list must read, not dazzle.
-Read `../anatomy.md` first; pick components from `../components/index.md`.
+## Beat options
 
-## Beats
+| Component | Default frames at 30 fps | Content |
+| --- | --- | --- |
+| [version-roll](../components/version-roll.md) | 108 | Actual product, version and release tag |
+| [statement-cuts](../components/statement-cuts.md) | 114 | Three short, approved change lines |
+| [laptop-lid](../components/laptop-lid.md) | 120 | Real screenshot or recording of the main change |
 
-A short 3-beat specialization of the anatomy (Positioning → Features → CTA). Duration scales with N:
-`total ≈ 60 (badge) + clamp(N*24, 96, 200) (list) + 70 (footer) − 2*12 overlap`. N=4 → ~270f.
+## Content and timing
 
-| Frames (N=4) | Beat | What happens |
-|---|---|---|
-| 0–60 | **Version badge** | version chip slides into the top-left, date right; "What's new" builds via `text-reveal` |
-| 60–160 | **Change list** | N rows, each a category tag (Added/Fixed/Changed) + text; staggered in, ~9f apart |
-| 160–270 | **Footer / CTA** | small version chip, link/CTA fades in, optional release-progress indicator |
+For more than three changes, choose the important ones or add deliberate scenes. Do not pass an invented items array to version-roll or statement-cuts.
 
-Transitions: badge→list `text-swap` (spring, 12f); list→footer `text-swap` (linear, 12f).
+Use only the beats the story needs. Replace defaults with supplied content, recalculate frame counts for the requested fps, and check content-dependent completion. For cuts with overlaps, subtract those overlaps from the final duration.
 
-## Beat → slots
+## Acceptance
 
-| Beat | Catalog components | New component needed |
-|---|---|---|
-| Version badge | `text-reveal` (title), a solid theme background (static low-opacity bg) | **`version-badge`** — version chip + date (build per `../anatomy.md` §1) |
-| Change list | `text-reveal` (rows), `text-reveal` (tags) | **`change-list`** — renders `{tag,text}[]` with a tag→color map (Added=green, Fixed=amber, Changed=blue) and auto-stagger + "+M more" truncation; **`category-tag`** — fixed-width monospace category chip (reused in patch-notes) |
-| Footer / CTA | `text-reveal` (link), `text-reveal` (chip) | a small footer/CTA scene if none fits |
-
-The change-list / version-badge / category-tag don't exist in the catalog yet — they're reusable
-across release archetypes, so build them as lightweight components (anatomy §1, "build new"), not one-offs.
-
-## Content contract (infer → ask → placeholder)
-
-| Field | Required | Notes |
-|---|---|---|
-| `version` | yes | infer from `package.json` / latest git tag |
-| `date` | yes | release date |
-| `changes[]` | yes | `{ tag: "Added"\|"Fixed"\|"Changed", text }` — infer from `CHANGELOG.md` / merged PR titles |
-| `link` | no | full-notes URL / CTA |
-| `brand` | no | `{ accent, background }` → one accent on a neutral canvas |
-
-`[N]` archetype: the list scene stretches linearly with the number of changes; cap visible rows and
-fold the rest into "+M more" rather than shrinking type.
-
-## Notes
-
-- **Background can move — keep it restrained.** A slow, muted shader (a solid theme background,
-  a solid theme background) at low `speed`, a low-opacity a solid theme background (≈0.06),
-  or a solid theme fill all work. The list is the focus — if the backdrop moves, keep it muted and
-  gentle so it never competes with the reading text.
-- One accent only; the tag colors (green/amber/blue) are semantic, not decoration — keep them muted.
-- Real change text from the repo, never `Scene A` / lorem. All copy English.
-- This is a list archetype — guard against the slop trap of enumerating forever: cap rows, keep it ~9s.
+Install the selected names with `npx @imgcli/cli add <names>`, compile the actual project, inspect each beat and both sides of cuts, then watch the encoded output. Fixtures are useful for integration checks but do not establish real product behavior or customer evidence.

@@ -1,55 +1,39 @@
-# caret
+# UI Caret
 
-**Tier:** `imgcli-ui` · **Vibe:** clean · **Natural length:** 120f @ 30fps
+A blinking text caret — a controlled vertical bar, or a pure motion atom that blinks deterministically from useCurrentFrame.
 
-A blinking text caret — a controlled vertical bar, or a pure motion atom that blinks deterministically off the frame clock.
+- Install: `npx @imgcli/cli add caret`
+- Export: `Caret`
+- Default preview: 120 frames at 30 fps, 1280 × 720. This is a default preview budget, not a duration guarantee for arbitrary props.
+- [Current documentation](https://imgcli.com/docs.md)
+- Catalog revision: `afc39418463a99b1`; source: `fd32423403ff`.
 
-## Install
+## Usage
 
-```bash
-npx shadcn@latest add https://imgcli.com/r/caret.json
+From a file in `src/` after installing into a project with a `src/` directory:
+
+```tsx
+import { Caret } from "./components/imgcli/caret";
+
+export const Example = () => <Caret />;
 ```
 
-Lands at `components/imgcli/caret.tsx`.
-
-## Older names
-
-These names came from the pre-consolidation registry and are **not installable**. `caret` is what to reach for instead:
-
-`cursor`
+The component's own bundled defaults make this minimal example renderable. Replace sample copy, metrics and media before publishing. The CLI uses relative imports; no `@/` alias or `components.json` is required.
 
 ## Props
 
-| Prop | Type | Default |
-|---|---|---|
-| `color` | `string` | "currentColor" |
-| `width` | `number` | 2 |
-| `height` | `number` | 18 |
-| `radius` | `number` | 1 |
-| `opacity` | `number` | — |
-| `blink` | `boolean` | false |
-| `blinkPerSecond` | `number` | 1 |
-| `marginLeft` | `number` | 0 |
-| `speed` | `number` | 1 |
-| `className` | `string` | — |
-| `style` | `CSSProperties` | — |
+| Prop | Type | Default expression |
+| --- | --- | --- |
+| `color?` | `string \| undefined` | `"currentColor"` |
+| `width?` | `number \| undefined` | `2` |
+| `height?` | `number \| undefined` | `18` |
+| `radius?` | `number \| undefined` | `1` |
+| `opacity?` | `number \| undefined` | — |
+| `blink?` | `boolean \| undefined` | `false` |
+| `blinkPerSecond?` | `number \| undefined` | `1` |
+| `speed?` | `number \| undefined` | `1` |
+| `marginLeft?` | `number \| undefined` | `0` |
+| `className?` | `string \| undefined` | — |
+| `style?` | `CSSProperties \| undefined` | — |
 
-Full prop list and per-prop notes are in the source you install.
-
-## Example
-
-```tsx
-<Caret blink blinkPerSecond={1} height={22} />
-```
-
-## Use when
-
-- Your own typing scene needs a caret and you want the blink deterministic, not an interval.
-- You are extending `input` or building a field the registry does not ship.
-- You need the bar's exact geometry under your control — width, height, radius, colour.
-
-## Don't use when
-
-- You are using `input`, `search-typing` or `prompt-zoom` — they bring their own caret.
-- You want a mouse cursor rather than a text caret; that does not ship.
-- The blink should be driven by CSS animation — it is frame-derived so it survives a render.
+Default expressions that name media or constants refer to the installed source, not extra exports to import. Read that source for nested object fields and any duration helper before changing array lengths or text length.

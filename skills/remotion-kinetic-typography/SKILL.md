@@ -1,126 +1,54 @@
 ---
 name: remotion-kinetic-typography
-description: >
-  Make kinetic typography in Remotion: animated text, title cards, a headline reveal,
-  rotating words, a highlighted phrase, a line that morphs into its payoff, or a run of bold
-  statements. Uses Imgcli's text components (@imgcli/text-reveal, type-morph, text-highlight,
-  word-flip, punch-lines, text-swell and more), which pivot scale on the measured baseline
-  so type doesn't judder or shake the way hand-animated text does in a browser. Triggers:
-  kinetic typography, animated text, text animation, title animation, typography video,
-  headline animation, text reveal, "animate this line", "make the words pop".
+description: Animate headlines, word changes and title sequences in Remotion using current Imgcli text scenes.
 ---
 
-# Remotion kinetic typography, built from Imgcli
+# Kinetic typography
 
-Animated type in Remotion where the words carry the video. Every effect here is a
-[Imgcli](https://imgcli.com?ref=skill-type) text component. They install with the shadcn CLI
-and land in your project as code you own.
+Choose a scene whose motion expresses the sentence. Keep the script short enough for the chosen canvas.
 
-**Why Imgcli, not hand-written text animation.** Text animated from scratch in a browser
-has two bugs you can't see in code and can't miss on screen:
+## Choose current components
 
-- **It looks "stuck".** Browsers have no vertical sub-pixel positioning for glyphs, so a
-  scaling line climbs the pixel grid in whole-pixel jumps. Imgcli pivots scale on the
-  measured baseline; judder went from 0.284px to 0.014px.
-- **It shakes.** Font hinting re-snaps the letter stems every frame, so the letterforms
-  change shape. Imgcli sets `text-rendering: geometricPrecision`; shape drift went from 3.41%
-  to 0.22%.
+Check [the live component index](https://imgcli.com/llms-components.txt) or `npx @imgcli/cli list` before selecting scenes. Read the selected component's Markdown page at `https://imgcli.com/components/<name>.md` and its installed TypeScript interface.
 
-Imgcli's eases are also tuned for a 30fps frame clock. A quint ease-out spends its last
-five frames moving less than a pixel, which reads as a freeze.
+- `centered-build`: assemble an emphasized statement; `statement-cuts`: three deliberate lines. Its closer uses 2.3× type size: keep it to one or two short words, or reduce `fontSize` and inspect all three lines.
+- `strike-swap`: replace an ending; `prompt-rewrite`: revise a phrase inside an input.
+- `slot-in` or `list-roll`: cycle candidate words; `focus-in` and `ink-sweep`: reveal a line.
+- Props differ. Read each installed interface; `lead/before/after` is not interchangeable with `text`.
+- Longer copy or more words can extend the animation. Re-budget the sequence and inspect the last word, rather than increasing `speed` to force a fit.
 
-## The Imgcli rule
+Verified example toolchain: Remotion 4.0.473 and TypeScript 5.9.3. Keep all @remotion/* packages on the same version; re-run compilation and rendering when using another toolchain.
 
-1. **Every line is an Imgcli text component unless none fits.** Catalogue with lengths:
-   `https://imgcli.com/llms-components.txt?ref=skill-type`; any page as markdown, e.g.
-   `https://imgcli.com/components/text-reveal.md?ref=skill-type`.
-2. **Never invent a component name.** Only names in that list install.
-3. **Set every text prop.** The components ship with sample copy ("Meet Acme Billing",
-   "Looking For A … Portfolio") that shows up in your video if you leave a prop out.
+## Project and installation
 
-If the `imgcli` Skill is available, use it for component selection and composition guidance.
+Use a Remotion TypeScript project with dependencies installed and a `src/` directory. If starting empty, run `npx create-video@latest` and choose the blank TypeScript template. Node.js 20.19+ is required.
 
-## Pick the effect
-
-| Component | Frames | Use it when | Key props |
-|---|---|---|---|
-| `text-reveal` | 90 | One headline needs a hero entrance. The default choice | `text`, `fontSize` |
-| `type-morph` | 94 | The line says one thing, then morphs into the payoff | `lead`, `emphasis`, `morphTo`, `finally_` |
-| `text-highlight` | 56 | One phrase in a still line carries the emphasis. Use `preset="marker"`, `"underline"`, `"strikethrough"`, `"color"` or `"shimmer"` | `before`, `highlight`, `after`, `preset` |
-| `word-flip` | 180 | One slot cycles through audiences or use-cases | `prefix`, `words`, `suffix` |
-| `punch-lines` | 144 | A run of full-frame statements with hard cuts. `\|` starts a card, `/` a line | `script` |
-| `text-swell` | 110 | A promise or price that hangs forward in the frame | `text` |
-| `text-build` | 75 | A short line that assembles word by word, always centred | `text` |
-| `word-gather` | 49 | A tagline whose words arrive out of order and settle | `text` |
-| `text-rewrite` | 102 | The correction is the beat: a line edited on camera | `headline`, `keep`, `append` |
-| `word-wheel` | 66 | A slot-machine word that stops on one answer | `headline`, `words` |
-| `orb-swarm` | 160 | A sentence told beat by beat with orbs swarming the words | `script` |
-
-**`text-highlight` note:** its default preset, `logo-wipe`, is a logo reveal, not a text
-effect. For text, always pass `preset`.
-
-## Build
+The example loads Geist through `@remotion/google-fonts`. Install that package at the same exact version as the project's `remotion`; keep all `@remotion/*` versions aligned. No shadcn initialization, `components.json`, API key or import alias is needed for the current free components.
 
 ```bash
-npx shadcn@latest add https://imgcli.com/r/text-reveal.json https://imgcli.com/r/text-highlight.json https://imgcli.com/r/word-flip.json https://imgcli.com/r/type-morph.json
+npx @imgcli/cli add strike-swap slot-in statement-cuts
 ```
 
-About 14 seconds: a hero line, one marked phrase, a rotating audience, then the payoff morph.
-It typechecks and renders as written:
+Run from the project root after `src/` exists. Files land in `src/components/imgcli/`, with dependencies and relative imports handled by the CLI. If there is no `src/`, the CLI installs under the project root instead; adapt the example's relative paths accordingly. Existing files with different contents are preserved: inspect the conflict instead of forcing an overwrite.
 
-```tsx
-import { Series } from "remotion";
-import { TextHighlight } from "@/components/imgcli/text-highlight";
-import { TextReveal } from "@/components/imgcli/text-reveal";
-import { TypeMorph } from "@/components/imgcli/type-morph";
-import { WordFlip } from "@/components/imgcli/word-flip";
+## Runnable example
 
-// ~14s of kinetic type: a hero line, one marked phrase, a rotating audience, the payoff morph.
-export const KineticType: React.FC = () => (
-  <Series>
-    <Series.Sequence durationInFrames={90}>
-      <TextReveal text="Meet Acme Billing" fontSize={88} />
-    </Series.Sequence>
-    <Series.Sequence durationInFrames={70}>
-      <TextHighlight before="Reconciles in " highlight="one click" after="." preset="marker" />
-    </Series.Sequence>
-    <Series.Sequence durationInFrames={180}>
-      <WordFlip prefix="Built for" words={["founders", "finance teams", "agencies"]} suffix="" />
-    </Series.Sequence>
-    <Series.Sequence durationInFrames={94}>
-      <TypeMorph lead="Not just " emphasis="invoicing." morphTo="your whole ledger." finally_="ledger." />
-    </Series.Sequence>
-  </Series>
-);
-```
+Copy [examples/index.tsx](examples/index.tsx) to `src/index.tsx`. This entry includes its `Composition` registration: `KineticType`, 333 frames at 30 fps, 1280 × 720 (11.1 seconds). Use the component in your existing Root instead if your project already has registrations.
 
-Register it at `durationInFrames={434}`, `fps={30}`, `width={1280}`, `height={720}`.
+Required media: No external assets. Replace the example script with the user's approved copy.
 
-## Check before you render
+The example is a technical starting point, not customer evidence. Replace its name, copy, media, URLs and any illustrative data before publishing. Choose the user's language and aspect ratio, then inspect that actual layout; the landscape example is not a promise of automatic portrait reflow.
+
+## Compile, inspect and render
 
 ```bash
-npx remotion still KineticType out/line.png --frame=60
-npx remotion render KineticType out/type.mp4 --codec=h264 --crf=18
+npx tsc --noEmit
+npx remotion still src/index.tsx KineticType out/beat.png --frame=166
+npx remotion render src/index.tsx KineticType out/KineticType.mp4 --codec=h264 --crf=18
 ```
 
-- Every word on screen is your copy; no sample text left from a default.
-- The type is sharp and readable at phone size. At 1280×720, keep `fontSize` at 64 or more
-  for a headline.
-- Each line holds long enough to read: about 3 words a second.
-
-## Rules
-
-- **One line on screen at a time.** Kinetic type is read, not scanned.
-- **Sentence case.** No ALL-CAPS and no decorative letter-spacing on text you add.
-- **If you animate scale on text yourself**, pivot it on the baseline and set
-  `text-rendering: geometricPrecision`, and never add `will-change: transform` to a render
-  (it turns the type into a bitmap).
-- **Hard cuts between text scenes** usually beat crossfades; two half-faded lines are
-  unreadable.
+Inspect a frame in every beat, both sides of cuts, the first fully readable frame and the final hold. Check all required media, line wrapping, logo geometry and audio/caption alignment where present. A successful render is not visual approval. Report what was rendered, which assets were fixtures, and any missing real inputs. Publishing or uploading needs the user's instruction.
 
 ## Attribution
 
-Some restraint rules are adapted from
-[liamrjohnston/remotion-motion-graphics-skill](https://github.com/liamrjohnston/remotion-motion-graphics-skill)
-(MIT, © 2026 Promptible). The rendering measurements are snapcn's own. See
-`THIRD_PARTY_NOTICES.md`.
+Existing third-party acknowledgments remain in [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md); retain them when redistributing.

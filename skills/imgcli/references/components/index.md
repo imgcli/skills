@@ -1,196 +1,87 @@
-# Imgcli Component Index
+# Current component index
 
-Router for the per-component reference files in this directory. **Scan this table to pick candidates, then open only the `components/<name>.md` files you actually need** — do not read every file.
+Generated from public MCP catalog revision `afc39418463a99b1`. 42 installable free components (40 scenes plus Input and Caret). All ship under MIT. Check `npx @imgcli/cli list` and the [live index](https://imgcli.com/llms-components.txt) before installing; refresh a stale reference rather than guessing a renamed API.
 
-See the [live Imgcli index](https://imgcli.com/llms-components.txt) for all installable components. This reference includes notes on composition and older names.
+Scene previews use 30 fps. For another fps, keep seconds constant and recalculate frame counts. Input and Caret are timeline primitives, not full scenes. The shared [imgcli-ui core](imgcli-ui.md) is installed transitively.
 
-Install a component by its current name with `npx shadcn@latest add https://imgcli.com/r/<name>.json`. The CLI installs its shared dependencies automatically.
+## ai-input
 
-## Text & Titles
+| Component | Default frames | Use for |
+| --- | --- | --- |
+| [agent-answer](agent-answer.md) | 156 @ 30 fps | An assistant shows its work, then its answer: tool steps spin and check off one by one, the result fills a small table row by row, and a one-line summary closes it. |
+| [agent-connect](agent-connect.md) | 156 @ 30 fps | An agent request gathers its sources: the request types, the cursor switches sources on in a menu, they attach as a chip, and a status line runs from reading to a sourced summary. |
+| [caret](caret.md) | 120 @ 30 fps | A blinking text caret — a controlled vertical bar, or a pure motion atom that blinks deterministically from useCurrentFrame. |
+| [chat-reply](chat-reply.md) | 150 @ 30 fps | A short conversation: the message types and sends as a bubble, a typing indicator answers, and the reply streams in word by word. |
+| [checklist-run](checklist-run.md) | 138 @ 30 fps | A job working through its checklist: items spin and check off in turn while the bar and a tabular percentage advance, and the header switches to its done label. |
+| [code-edit](code-edit.md) | 150 @ 30 fps | Code that turns into a picture: a component's usage types into an editor coloured from the theme's tokens, and when the last line lands the preview pane plays the result. |
+| [file-drop](file-drop.md) | 144 @ 30 fps | Files arriving: a stack of files is dragged into a drop zone that lights as it hovers, and on release each file lands as a row with its own upload bar. |
+| [input](input.md) | 120 @ 30 fps | A text input whose idle/hover/active/typing/invalid state is a pure function of the timeline; the focus ring, border, caret, and value reveal are keyframed presets. |
+| [mobile-keyboard](mobile-keyboard.md) | 138 @ 30 fps | Typing on a phone: the keyboard slides up and the prompt types key by key, each key lighting and popping a preview, then the message sends as a bubble. |
+| [prompt-expand](prompt-expand.md) | 138 @ 30 fps | An Ask AI pill grows into a full composer, a prompt types itself with an inline mention chip, and sends with a ripple off the button. |
+| [prompt-grid](prompt-grid.md) | 138 @ 30 fps | From a request to options: the prompt types and sends, tiles appear as shimmering placeholders and resolve one by one into images, and the chosen one takes a ring and a check. |
+| [prompt-rewrite](prompt-rewrite.md) | 144 @ 30 fps | A prompt gets a second thought: it types, the caret selects one phrase, the selection is deleted, and a better phrase types into its place. |
+| [run-log](run-log.md) | 155 @ 30 fps | An agent's run as a log that writes itself: each step lights its dot on the rail, spins and checks off while its detail lines arrive, and the view glides to keep the active step centred. |
+| [search-results](search-results.md) | 132 @ 30 fps | A command palette finding something: each letter narrows the results live with the match in bold, the top result is highlighted, Enter flashes it and a status confirms it opened. |
 
-Reveal, replace and emphasize a line. Frame-driven, shared `speed` prop.
+## screens
 
-| Component | Use for | Avoid for | Length | Vibe |
-|---|---|---|---|---|
-| [`text-reveal`](text-reveal.md) | A headline needs a hero entrance where one word carries the moment before the rest of the line… | The line is a subtitle or supporting label — the lead-word swell is too loud; set a short… | 90f | premium |
-| [`text-swell`](text-swell.md) | A pricing line, promise or punchline needs to sit forward in the frame and hold before the… | The budget is under ~90 frames — the float and hold get clipped and the motion reads as a… | 110f | premium |
-| [`text-highlight`](text-highlight.md) | One phrase in an otherwise static line has to carry the emphasis — a feature name, a number, a… | The whole line should animate — this leaves `before` and `after` static by design. Use… | 56f | clean |
-| [`text-swap`](text-swap.md) | One label, stat or claim has to become another in the same slot — a before/after, a plan… | Text is entering for the first time with nothing to replace — use `text-reveal` or `text-build`. | 90f | clean |
-| [`text-build`](text-build.md) | A short headline should visibly assemble, with the reflow doing the work rather than a stagger… | The line is 7+ words: every arrival re-centres the whole line and the motion turns busy. | 75f | clean |
-| [`word-flip`](word-flip.md) | A hero line has to cover several audiences or use-cases without three separate scenes. | The budget is short; typing the prefix alone eats most of a 90-frame shot. | 180f | playful |
-| [`text-rewrite`](text-rewrite.md) | The correction is the beat — a line that says one thing, then gets edited on camera into what… | Both versions are entirely different strings — `text-swap` replaces a whole line and offers… | 102f | clean |
-| [`text-select`](text-select.md) | You need a short, cheap emphasis beat — at 72 frames this is the shortest text scene in the… | Only part of the line should be emphasised — use `text-highlight` for a phrase, or… | 72f | clean |
-| [`type-morph`](type-morph.md) | The line has to say two things in sequence and the *second* is the payoff — the morph is the… | The two strings share no letters — the per-letter morph reads as a scramble. Use `text-swap`… | 94f | premium |
-| [`brand-wheel`](brand-wheel.md) | The beat is "works everywhere" / "ship to every platform" and the platforms are recognisable b… | The items are plain words rather than brands — use `word-wheel` or `check-cycle`. | 139f | playful |
-| [`check-cycle`](check-cycle.md) | One line that finishes itself several ways — use-cases, formats, audiences. | The list should spin and land with energy — use `word-wheel`. | 136f | clean |
-| [`drop-line`](drop-line.md) | A quick, punchy text beat — a tagline or transition card. | A line that needs to be read slowly; it is 38 frames. | 38f | playful |
-| [`font-shuffle`](font-shuffle.md) | An "Introducing <name>" title with personality. | Long product names — the subject is set very large. | 115f | premium |
-| [`hello-zoom`](hello-zoom.md) | A developer-tool intro that names the stack it works with. | A calm title that should simply hold — use `text-reveal`. | 75f | tech |
-| [`punch-lines`](punch-lines.md) | A manifesto or promise told as a sequence of full-frame statements. | One quiet line — use `text-reveal`. | 144f | premium |
-| [`spec-sweep`](spec-sweep.md) | A single performance or capability claim — speed, size, a benchmark. | Several specs at once — use `count-grid` or a sequence of beats. | 75f | tech |
-| [`title-sweep`](title-sweep.md) | An end card: product name, then URL or call to action. | A logo mark rather than a name — use a lockup such as `sky-lockup`. | 76f | premium |
-| [`word-gather`](word-gather.md) | A short tagline that should feel assembled rather than typed. | Lines over ~8 words; the scatter gets busy. | 49f | clean |
-| [`word-wheel`](word-wheel.md) | "<Product> for …" lines that cover several audiences or use-cases. | One word only — use `text-reveal`. | 66f | playful |
+| Component | Default frames | Use for |
+| --- | --- | --- |
+| [app-open](app-open.md) | 126 @ 30 fps | A brand opens its app: the window unfolds outward from the mark, the mark rides into the corner as the app's logo, the question types itself and suggestions rise under the composer. |
+| [brief-form](brief-form.md) | 168 @ 30 fps | A brief, filled in: the cursor types into each field, picks a length and a tone, and submits; the button becomes the confirmation. Controls only change fill and border, so the form never reflows. |
+| [device-trio](device-trio.md) | 132 @ 30 fps | One product on three screens: a laptop rises in, a tablet and a phone arrive in front of it, each at its own width, and the group drifts apart with depth. |
+| [laptop-lid](laptop-lid.md) | 120 @ 30 fps | A laptop opens on its hinge and the screen wakes to your product. A slightly elevated view keeps the keyboard, trackpad and solid base visible while a line rises underneath. |
+| [option-pick](option-pick.md) | 132 @ 30 fps | A choice being made: the hover ring travels down the options, the cursor clicks one and its radio fills, the call to action turns live and is pressed. |
+| [phone-feature](phone-feature.md) | 138 @ 30 fps | The mobile pitch shot: a headline sets word by word beside a phone that rises in turned toward it, then its screen scrolls down your page. |
+| [phone-flow](phone-flow.md) | 162 @ 30 fps | An app walkthrough on a phone: each screen holds, a finger taps the named point, and the next screen pushes in from the right while step captions follow along. |
 
-## Captions
+## scenes
 
-Burned-in captions from word-level timings (Whisper, CapCut, `@remotion/captions`) or an .srt.
+| Component | Default frames | Use for |
+| --- | --- | --- |
+| [badge-card](badge-card.md) | 114 @ 30 fps | A membership card for the plan you sell: it rises into place, a band of light sweeps across it once, and a line sets underneath. The card only moves, so its type stays crisp. |
+| [before-after](before-after.md) | 132 @ 30 fps | Two versions in one frame: a handle sweeps across the picture uncovering the second version, overshoots, comes back and settles in the middle so both sides stay readable. |
+| [color-flood](color-flood.md) | 108 @ 30 fps | The closing card: the lockup settles, then the brand colour floods out from inside the mark as a hard-edged disc until it covers the frame, and the URL arrives on the new colour. |
+| [gallery-drift](gallery-drift.md) | 135 @ 30 fps | A body of work behind a headline: two rows of screenshot cards drift slowly in opposite directions while the headline holds on a hairline plate in front. |
+| [stat-grid](stat-grid.md) | 120 @ 30 fps | Proof in numbers: tiles land one after another and each figure counts up inside a width reserved for its final value, then a closing line sets underneath. |
+| [version-roll](version-roll.md) | 108 @ 30 fps | A release announced like an odometer: the product name sets, then each digit of the version spins up through its column and stops on its value, left to right. |
 
-| Component | Use for | Avoid for | Length | Vibe |
-|---|---|---|---|---|
-| [`word-captions`](word-captions.md) | You have word-level timings from Whisper, CapCut or `@remotion/captions` and want them burned… | The line should fill word-by-word as it is spoken in a karaoke sweep — use `karaoke-captions`. | 96f | social |
-| [`karaoke-captions`](karaoke-captions.md) | The line should visibly fill as it is spoken — lyric-video or talking-head energy. | You are burning a full transcript over a long clip — `word-captions` pages properly, this does… | 150f | social |
+## charts
 
-## AI Chat Input
+| Component | Default frames | Use for |
+| --- | --- | --- |
+| [bar-chart](bar-chart.md) | 120 @ 30 fps | A week at a glance with one day as the story: bars grow in turn, the highlighted bar takes the accent and its value counts up, then a delta chip lands. |
+| [line-climb](line-climb.md) | 132 @ 30 fps | A line that shows when things changed: it draws left to right with its area, a dot rides the head with the current value, and an event marker pops as the head passes it. |
+| [number-up](number-up.md) | 114 @ 30 fps | One number as the whole story: the figure counts up in tabular digits that never change width, a delta chip lands beside it, and a sparkline draws underneath. |
+| [unit-chart](unit-chart.md) | 126 @ 30 fps | A part-to-whole picture that fills itself in: waffle cells take their category's colour in reading order while the total counts up and the legend follows. |
 
-Prompt surfaces — the field, the cut, the streamed reply.
+## transitions
 
-| Component | Use for | Avoid for | Length | Vibe |
-|---|---|---|---|---|
-| [`search-typing`](search-typing.md) | The query itself is the story — a search or prompt box as the hero of the shot. | The budget is short — at 420 frames of natural length this is one of the longest scenes in the… | 420f | tech |
-| [`prompt-zoom`](prompt-zoom.md) | A short, punchy AI-product beat: the surface, the prompt, and a cut that lands mid-word. | You want a smooth push rather than a cut — `cutAt` is one frame by design, that is the gag. | 90f | tech |
-| [`answer-stream`](answer-stream.md) | The product's value is in the response — a copilot, an agent, an AI feature that returns… | The prompt is the story and the reply is incidental — use `prompt-zoom`. | 150f | tech |
-| [`prompt-send`](prompt-send.md) | The *submit* is the beat — the pointer arriving at the send button is what the shot is for. | The cut into the field is the gag and you want it over in 90 frames — use `prompt-zoom`. | 165f | tech |
-| [`answer-highlight`](answer-highlight.md) | The answer is the pitch and one clause inside it is the actual claim — the drag is what points… | The reply should just stream and land with no emphasis beat — use `answer-stream`, which is 40… | 190f | tech |
-| [`agent-steps`](agent-steps.md) | The product *is* the agent, and the work it does between prompt and answer is the thing worth… | There is no intermediate work to narrate and the reply is the whole shot — use `answer-stream`. | 160f | tech |
+| Component | Default frames | Use for |
+| --- | --- | --- |
+| [block-wipe](block-wipe.md) | 84 @ 30 fps | A transition built from blocks: columns rise from the bottom in whole-block steps, the middle first, and the next scene shows through them until it fills the frame. |
+| [dot-wipe](dot-wipe.md) | 84 @ 30 fps | A transition made of dots: a field of dots grows across the frame in a diagonal wave and the next scene shows through them until it fills the frame. |
 
-## Screens & Devices
+## text
 
-Put the product's own UI in the shot.
+| Component | Default frames | Use for |
+| --- | --- | --- |
+| [centered-build](centered-build.md) | 99 @ 30 fps | A line builds one word at a time and stays centred as it grows: each new word slides in while the words already set glide left to make room. |
+| [focus-in](focus-in.md) | 102 @ 30 fps | Words resolve out of blur on an accelerating rhythm: the first arrive slowly enough to read alone, the rest catch up and the line lands together. |
+| [ink-sweep](ink-sweep.md) | 102 @ 30 fps | A line inks itself as it is read: it fades in faint, and a sweep runs along it letter by letter, flashing each letter to the accent before it settles to full ink. |
+| [list-roll](list-roll.md) | 114 @ 30 fps | A picker spins and settles: a phrase on the left and a column of options that runs through the list, slows, and lands on the answer under a highlight, with an optional footer. |
+| [slot-in](slot-in.md) | 117 @ 30 fps | A sentence with one rolling word: the slot rolls up through its candidates and lands on the last, which takes the accent and an underline, and the slot's width follows each word. |
+| [statement-cuts](statement-cuts.md) | 114 @ 30 fps | Three statements joined by hard cuts: the first sets word by word with a rule drawing under its last word, the second wipes on, and the closer rises out of its own baseline. |
+| [strike-swap](strike-swap.md) | 102 @ 30 fps | A sentence corrects itself: a marker strikes through its ending, the struck words drop away, and the new ending rises into the same place. |
 
-| Component | Use for | Avoid for | Length | Vibe |
-|---|---|---|---|---|
-| [`phone-frame`](phone-frame.md) | A mobile product needs its UI on a real device rather than a bare screenshot. | The product is desktop or web — use `laptop-frame`. | 240f | clean |
-| [`laptop-frame`](laptop-frame.md) | A web or desktop product needs a device to sit in before the shot goes inside it. | `finale="zoom-to-screen"` is used inside a smaller container — the cover scale is derived from… | 240f | premium |
-| [`terminal-simulator`](terminal-simulator.md) | The product is a CLI, or the install command is the pitch. | You need a syntax-highlighted source block rather than terminal output — that does not ship;… | 200f | tech |
-| [`screen-recording`](screen-recording.md) | The user has an actual screen recording of their product and it needs to become a demo shot —… | The capture is already cropped, clean and locked off — an `OffthreadVideo` of your own does… | 139f | clean |
-| [`cursor-track`](cursor-track.md) | A UI simulation, or a recording whose cursor never made it into the file, needs a pointer doing… | The recording already has a cursor in it — two pointers is worse than none. | 132f | clean |
-| [`capture-reveal`](capture-reveal.md) | A hook that turns one product screenshot into a headline. | The screen itself needs to be explored — use `screen-recording` or `laptop-frame`. | 130f | clean |
-| [`phone-stack`](phone-stack.md) | A mobile product with several flows to show in one shot. | One screen that needs close attention — use `phone-frame`. | 120f | clean |
+## logos
 
-## Logos
+| Component | Default frames | Use for |
+| --- | --- | --- |
+| [lockup-draw](lockup-draw.md) | 114 @ 30 fps | A logo built in front of you: construction guides draw out from the centre, the mark strokes itself in, the name wipes on, and the guides fade leaving the lockup and its tagline. |
 
-Openers and closers that resolve into a mark.
+## social
 
-| Component | Use for | Avoid for | Length | Vibe |
-|---|---|---|---|---|
-| [`logo-assemble`](logo-assemble.md) | A closing lockup needs the product's own screenshots to resolve into the brand mark. | You have one or two images — the ring needs a population to read as one. | 108f | premium |
-| [`logo-flicker`](logo-flicker.md) | A short, high-energy bumper — 100 frames from first flip to resolved mark. | The images deserve to be seen — the flip interval is short by design. Use `logo-assemble` or… | 100f | tech |
-| [`block-wordmark`](block-wordmark.md) | A short wordmark (3–6 characters) is the whole shot and should build rather than fade in. | The wordmark is long; every character gets its own block and the row runs off frame past ~8. | 150f | playful |
-| [`logo-drift`](logo-drift.md) | The integrations *are* the pitch and no single one is the hero — the field never stops on a… | One specific mark has to land and be read — nothing here stops. Use `logo-assemble` or… | 108f | tech |
-| [`logo-collapse`](logo-collapse.md) | A short intro sting that ends on the logo. | Long bumpers — use `logo-flicker` or `logo-assemble`. | 52f | premium |
-
-## Scenes
-
-Full multi-shot sequences. Each owns its own choreography.
-
-| Component | Use for | Avoid for | Length | Vibe |
-|---|---|---|---|---|
-| [`announce-title`](announce-title.md) | A launch or version announcement needs a full title sequence, not a title card. | The budget is short — this is four shots in 170 frames and cutting it early lands mid-shot. | 170f | premium |
-| [`hero-launch`](hero-launch.md) | An opening shot needs two pieces of media plus a line, with no further choreography to manage. | You have more than two pieces of media — use `orbit-gallery` or `moodboard-reveal`. | 170f | premium |
-| [`orbit-gallery`](orbit-gallery.md) | A long hero that has to hold — 300 frames of continuous motion with no beat to hit. | A specific image has to land — the stream never stops on one. Use `moodboard-reveal`. | 300f | premium |
-| [`moodboard-reveal`](moodboard-reveal.md) | One image has to be the payoff and the rest are context — `heroImage` is where the montage… | You need the scene to stay in one mode — it spans light and dark and takes no `mode` prop. | 150f | premium |
-| [`status-cycle`](status-cycle.md) | A product's verbs are the pitch — one line, several states, no scene changes. | You are swapping a single string once — use `text-swap`. | 150f | clean |
-| [`bloom-lockup`](bloom-lockup.md) | A logo intro or outro should show the product's screens, not just the mark. | You have no screens to show — use `cut-lockup`. | 120f | premium |
-| [`card-rail`](card-rail.md) | Feature, template or integration cards that should read as a browsable library. | A single hero image — use `moodboard-reveal`. | 108f | premium |
-| [`count-grid`](count-grid.md) | A growth or volume stat backed by real items (clips, projects, users). | A number with no proof behind it. | 47f | data |
-| [`cut-lockup`](cut-lockup.md) | A logo reveal for a brand with a clean vector mark. | A text-only title — use `text-reveal`. | 108f | premium |
-| [`gather-lockup`](gather-lockup.md) | A logo reveal for a brand with lots of visual work to show (15 pictures). | Fewer than 15 images — use `bloom-lockup`. | 60f at 24fps | premium |
-| [`orb-swarm`](orb-swarm.md) | A kinetic-typography moment with spectacle — a manifesto or hook line. | Tight budgets — it needs its full length. | 160f | playful |
-| [`portal-intro`](portal-intro.md) | An opening that moves from a line of copy into a hero picture and the brand. | No hero image — use `text-reveal` or `announce-title`. | 108f | clean |
-| [`reel-collage`](reel-collage.md) | A quick photo reel that lands on a two-part caption. | Screenshots of UI; it is built for photos. | 96f | playful |
-| [`reel-wall`](reel-wall.md) | A showcase of many vertical videos — creator content, ads, shorts. | Landscape footage that must not be cropped; 9:16 fits best. | 216f at 24fps | premium |
-| [`roster-grant`](roster-grant.md) | Team, seats or access-control features — "everyone gets it". | Solo products; it reads as teams. | 120f | clean |
-| [`sky-lockup`](sky-lockup.md) | A quick closing card that ends on the logo without slowing the video down. | Long sentences; it wants a short promise. | 57f | premium |
-| [`wordmark-cut`](wordmark-cut.md) | The end card for a short, lowercase-friendly brand name. | Long names; it reads best at 4–8 characters. | 66f | premium |
-
-## Social Proof
-
-Numbers that land.
-
-| Component | Use for | Avoid for | Length | Vibe |
-|---|---|---|---|---|
-| [`follower-rush`](follower-rush.md) | Social proof is the beat — a launch that landed, a milestone, a waitlist filling. | The metric is not a follower count — nothing else in the registry animates numbers, so build a… | 300f | social |
-| [`channel-thread`](channel-thread.md) | The team reacting to a launch or a problem, told as a work chat. | Consumer or AI chat — use `answer-stream` for an AI reply. | 110f | social |
-
-## Cursor & Clicks
-
-A cursor that does something on screen. Built on `cursor-track`.
-
-| Component | Use for | Avoid for | Length | Vibe |
-|---|---|---|---|---|
-| [`button-press`](button-press.md) | The deploy, publish or send beat of a launch video. | The click happens inside a real screen recording — use `cursor-track` over the footage. | 126f | clean |
-| [`click-type`](click-type.md) | The "just describe it" beat of an AI product video. | The prompt should be sent and answered in the same shot — use `prompt-send` then `answer-strea… | 103f | tech |
-
-## Transitions
-
-Covers a cut between two shots.
-
-| Component | Use for | Avoid for | Length | Vibe |
-|---|---|---|---|---|
-| [`dot-bloom`](dot-bloom.md) | A warm, characterful cut between two scenes. | A sober or technical edit — a plain cut or `@remotion/transitions` fade reads better. | 30f | playful |
-
-## UI Primitives
-
-State-based, timeline-driven shadcn atoms. **No `speed` prop.**
-
-| Component | Use for | Avoid for | Length | Vibe |
-|---|---|---|---|---|
-| [`input`](input.md) | A form field is part of a larger scene and its state should be driven by the timeline, not by… | You want the whole typing scene choreographed — use `search-typing` or `prompt-zoom`. | 120f | clean |
-| [`caret`](caret.md) | Your own typing scene needs a caret and you want the blink deterministic, not an interval. | You are using `input`, `search-typing` or `prompt-zoom` — they bring their own caret. | 120f | clean |
-| [`imgcli-ui`](imgcli-ui.md) | You are writing your own component and need the same tokens the registry uses. | You are only installing components — `shadcn` pulls this in for you. | — | — |
-
-## Older names
-
-The catalog this file replaces described a pre-consolidation registry. None of those names install. Where an old name has a home, it is listed here; everything else was dropped and has no equivalent.
-
-| Old name | Now |
-|---|---|
-| `ai-prompt-flow` | [`search-typing`](search-typing.md) or [`prompt-zoom`](prompt-zoom.md) |
-| `blur-out-up` | [`text-reveal`](text-reveal.md) |
-| `bottom-up-letters` | [`text-reveal`](text-reveal.md) |
-| `claude-chat` | [`prompt-zoom`](prompt-zoom.md) or [`answer-stream`](answer-stream.md) |
-| `combobox` | [`input`](input.md) |
-| `crossfade` | [`text-swap`](text-swap.md) |
-| `cursor` | [`search-typing`](search-typing.md) or [`caret`](caret.md) |
-| `fade-through` | [`text-swap`](text-swap.md) |
-| `field` | [`input`](input.md) |
-| `fly-through` | [`text-swap`](text-swap.md) |
-| `focus-blur-resolve` | [`text-reveal`](text-reveal.md) |
-| `github-stars` | [`follower-rush`](follower-rush.md) |
-| `glass-code-block` | [`answer-stream`](answer-stream.md) or [`terminal-simulator`](terminal-simulator.md) |
-| `infinite-marquee` | [`orbit-gallery`](orbit-gallery.md) |
-| `inline-highlight` | [`text-highlight`](text-highlight.md) |
-| `kinetic-center-build` | [`text-swell`](text-swell.md) or [`text-build`](text-build.md) |
-| `line-by-line-slide` | [`text-reveal`](text-reveal.md) or [`text-build`](text-build.md) |
-| `logo-enter` | [`text-highlight`](text-highlight.md) or [`logo-assemble`](logo-assemble.md) or [`logo-flicker`](logo-flicker.md) |
-| `marker-highlight` | [`text-highlight`](text-highlight.md) |
-| `mask-reveal-up` | [`text-reveal`](text-reveal.md) |
-| `micro-scale-fade` | [`text-reveal`](text-reveal.md) |
-| `number-wheel` | [`word-flip`](word-flip.md) |
-| `per-character-rise` | [`text-reveal`](text-reveal.md) |
-| `per-word-crossfade` | [`text-swap`](text-swap.md) |
-| `perspective-marquee` | [`orbit-gallery`](orbit-gallery.md) |
-| `rolling-number` | [`word-flip`](word-flip.md) |
-| `scale-down-fade` | [`text-reveal`](text-reveal.md) |
-| `screen-callout` | [`screen-recording`](screen-recording.md) — `camera`, a push to the point that needs naming |
-| `screen-spotlight` | [`screen-recording`](screen-recording.md) — `camera`, a push to the point that needs emphasis |
-| `shared-axis-y` | [`text-swap`](text-swap.md) |
-| `shared-axis-z` | [`text-swap`](text-swap.md) |
-| `shimmer-sweep` | [`text-highlight`](text-highlight.md) |
-| `short-slide-down` | [`text-build`](text-build.md) |
-| `short-slide-right` | [`text-reveal`](text-reveal.md) |
-| `slot-machine-roll` | [`word-flip`](word-flip.md) |
-| `soft-blur-in` | [`text-reveal`](text-reveal.md) |
-| `spring-scale-in` | [`text-reveal`](text-reveal.md) |
-| `staggered-fade-up` | [`text-reveal`](text-reveal.md) |
-| `strikethrough-replace` | [`text-highlight`](text-highlight.md) |
-| `top-down-letters` | [`text-reveal`](text-reveal.md) |
-| `tracking-in` | [`text-reveal`](text-reveal.md) |
-| `v0` | [`prompt-zoom`](prompt-zoom.md) or [`answer-stream`](answer-stream.md) |
-| `x-follow-card` | [`follower-rush`](follower-rush.md) |
-| `x-followers-overview` | [`follower-rush`](follower-rush.md) |
-
-**Dropped with no equivalent:** every `shader-*` background, `mesh-gradient-bg`, `dynamic-grid`, `backdrop`, `confetti`, `directional-wipe`, `frosted-glass-wipe`, `grid-pixelate-wipe`, `chromatic-aberration-wipe`, `spatial-push`, `zoom-through-transition`, `matrix-decode`, `rgb-glitch-text`, `number-wheel`, `rolling-number`, `slot-machine-roll`, `animated-bar-chart`, `glass-code-block`, and the shadcn-primitive tier beyond `input` and `caret` (`dialog`, `drawer`, `select`, `command-menu`, `popover`, `tabs`, `toast`, `switch`, …).
-
-If a scene needs one of those, build it — see `../anatomy.md` §1.
+| Component | Default frames | Use for |
+| --- | --- | --- |
+| [message-stack](message-stack.md) | 129 @ 30 fps | Team notifications stacking up: each new card drops in at the top and pushes the earlier ones down, which dim as they age. |

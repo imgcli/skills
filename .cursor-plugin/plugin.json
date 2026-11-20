@@ -1,7 +1,7 @@
 {
   "name": "imgcli",
   "displayName": "Imgcli",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Make launch videos, product demos and motion graphics in Remotion with Imgcli components.",
   "author": {
     "name": "Liqi Labs",
@@ -13,7 +13,7 @@
   "keywords": [
     "remotion",
     "video",
-    "shadcn",
+    "imgcli-cli",
     "motion-graphics",
     "launch-video",
     "product-demo",

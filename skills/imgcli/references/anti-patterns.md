@@ -1,123 +1,20 @@
-# Imgcli Anti-Patterns
+# Integration failures to avoid
 
-Common mistakes when generating Imgcli videos. Each is something the model tends to do wrong.
+| Failure | Correct decision |
+| --- | --- |
+| Installing a name remembered from an old example | Confirm it with npx @imgcli/cli list, then read its current interface. Similar names need not share props. |
+| Requiring shadcn setup or a components.json for the Imgcli CLI | Use npx @imgcli/cli add from a Remotion project. Current installs use relative imports. |
+| Copying an @/components/imgcli import into an alias-free project | Import relative to the actual installed location, such as ./components/imgcli/laptop-lid from src/index.tsx. |
+| Passing generic text/color/className props to every scene | Check the chosen component reference and source. Scene interfaces differ. |
+| Passing speed to Input or Caret | Use the primitive's actual state/style or blink props. |
+| Using gallery frame counts unchanged at another fps | Preserve seconds and recalculate frames; check content-dependent timing separately. |
+| Cutting a scene before its last word, tap or result | Increase its Sequence budget or simplify the content and inspect the completion frame. |
+| Putting a long sentence in statement-cuts lineThree | Its closer uses 2.3× type size. Use short words or a smaller fontSize and inspect the actual render. |
+| Expecting a standalone wipe scene to implement a transition presentation | Use its documented before/after API or Remotion's TransitionSeries API for arbitrary children. |
+| Treating default sample screens as the customer's product | Supply actual screenshots/recordings through media props. |
+| Assuming a caption, terminal, camera or cursor wrapper exists | Use available footage, a dedicated tool or a small project-local implementation when the current catalog lacks that capability. |
+| Assuming a supplied logo gets SVG path tracing | lockup-draw wipes a supplied image; its built-in path drawing is for Imgcli's own default mark. |
+| Rendering without loading fonts or required public files | Load the font in the entry; place user media in public and load it with staticFile. |
+| Declaring success after tsc or a single still | Render and inspect every beat and the encoded file. Audio and captions need their own alignment review. |
 
-## 1. Clipping a component by under-budgeting its Sequence
-
-Every component has a natural length (the `Length` column in `components/index.md`, and the
-`Natural length` meta line in each `components/<name>.md`). Budget the `Sequence` around it.
-
-```tsx
-// ❌ text-reveal needs ~90f, gets cut at 30
-<Sequence durationInFrames={30}><TextReveal text="Launch" /></Sequence>
-// ✅
-<Sequence durationInFrames={90}><TextReveal text="Launch" /></Sequence>
-```
-
-## 2. Reaching for an Imgcli transition component
-
-**None ship.** A scene change is Remotion's own `<TransitionSeries.Transition>`. `text-swap`
-changes a *line* inside a beat — it is not a scene transition.
-
-```tsx
-// ❌ no such component
-<DirectionalWipe from={<SceneA />} to={<SceneB />} />
-// ✅
-<TransitionSeries>
-  <TransitionSeries.Sequence durationInFrames={90}><SceneA /></TransitionSeries.Sequence>
-  <TransitionSeries.Transition
-    presentation={slide()}
-    timing={springTiming({ durationInFrames: 18, config: { damping: 200 } })}
-  />
-  <TransitionSeries.Sequence durationInFrames={90}><SceneB /></TransitionSeries.Sequence>
-</TransitionSeries>
-```
-
-## 3. Animation-tier props on a UI Primitive
-
-Primitives (`imgcli-ui`) are state-based and have **no `speed`**. Drive them with `state`.
-Two ship: `input` and `caret`.
-
-```tsx
-// ❌
-<Input speed={2} />
-// ✅
-<Input state="typing" value="acme@example.com" />
-```
-
-## 4. Wrong canvas size
-
-The standard composition is `1280×720 @ 30fps`. Components are laid out for it. Don't invent
-`1920×1080` and wonder why things are off-center.
-
-## 5. Animating layout properties
-
-Animate `transform` (and individual `translate`/`scale`), never `top`/`left`/`width`/`height` —
-layout animation reflows every frame and breaks split layouts.
-
-```tsx
-// ❌ left: interpolate(frame, [0,30], [0,200])
-// ✅ transform: `translateX(${interpolate(frame,[0,30],[0,200])}px)`
-```
-
-## 6. Non-deterministic code
-
-Renders are multi-pass — `Math.random()`, `setInterval`/`setTimeout`, `Date.now()` all produce
-flicker or diverging frames.
-
-```tsx
-// ❌ const x = Math.random();
-// ✅ import { random } from "@remotion/random"; const x = random(`seed-${frame}`);
-```
-
-## 7. Mishandling registryDependencies
-
-Dependencies install **automatically** — don't tell the user to add them manually, and don't
-inline-copy a dependency's code. Also: don't import deeper than one path segment
-(`@/components/imgcli/<name>`); the tsconfig glob doesn't resolve `<name>/helpers`.
-
-## 8. Loading fonts mid-render
-
-Load fonts once before render via `@remotion/google-fonts` (`loadFont()`), not inside a component
-body per frame. Unloaded fonts flash fallback in the export.
-
-## 9. Hardcoding a background on a component
-
-Imgcli components render **transparent** — they don't own a background. Set the scene background
-with `backdrop` (or your own container), not by hardcoding a fill into the component.
-
-## 10. Slop styling on your own additions
-
-ALL-CAPS + wide tracking + gradient text + glow shadows on text *you* add. See `design.md`.
-
-## 11. Everything enters on one frame
-
-Stagger sibling entrances (3–6f). Landing a whole group simultaneously reads robotic. See
-`motion-principles.md` → Follow-Through & Overlapping Action.
-
-## 12. Crossfading one scene into the next
-
-A `<TransitionSeries.Transition>` overlaps the two beats **in time** — both are mounted for its
-whole duration. The presentation decides whether that is visible. Anything that composites
-(`fade`, `none`, `wipe`, `iris`, `clockWipe`) draws the arriving beat *on top of* the outgoing
-one, and since Imgcli scenes are transparent (see 9) and all of them own the middle of the
-frame, both are legible at once for every frame of the overlap. `fade()` is the worst case:
-`shouldFadeOutExitingScene` defaults to `false`, so the old shot sits at **full opacity**
-underneath the new one. Settling early does not help — a finished beat is just as inked as an
-unfinished one.
-
-Use a presentation that **moves** the beats apart, so every pixel belongs to exactly one shot:
-
-```tsx
-// ❌ two centred headlines, one illegible word, 18 frames long
-<TransitionSeries.Transition presentation={fade()} timing={springTiming({ durationInFrames: 18 })} />
-// ✅
-<TransitionSeries.Transition
-  presentation={slide()}
-  timing={springTiming({ durationInFrames: 18, config: { damping: 200 } })}
-/>
-```
-
-`damping: 200` because the default spring overshoots, and an overshooting slide throws the whole
-scene past centre and drags it back. A fade is only safe when the outgoing beat is empty by the
-time it starts — which no Imgcli scene is.
+The runnable entries in the workflow Skills show current APIs. A successful sample render validates integration, not the accuracy of a user's marketing claims or real-media crop.
